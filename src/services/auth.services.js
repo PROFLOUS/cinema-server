@@ -3,11 +3,21 @@ const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, Validate
 const axios = require('axios');
 require('dotenv').config();
 const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+const Nexmo = require('nexmo')
+const nexmo = new Nexmo({
+  apiKey: "e0108785",
+  apiSecret: "yIA1P9hbimnHFrZo"
+})
 
 class CustomerService {
 
     async SignUp(userInputs) {
-        const { email,password,phone,firstName,lastName,gender,brithday,ward_id } = userInputs;
+
+        const { 
+            email,password,phone,firstName,lastName,gender,address,
+            HierarchyAddressDistrict_id,HierarchyAddressWard_id,
+            HierarchyAddressCity_id,brithday 
+        } = userInputs;
         
         // Check email is exist
         const isExist = await CustomerRepository.GetByEmail(email);
@@ -33,7 +43,10 @@ class CustomerService {
             firstName,
             lastName,
             gender,
-            ward_id,
+            address,
+            HierarchyAddressDistrict_id,
+            HierarchyAddressWard_id,
+            HierarchyAddressCity_id,
             salt,
             brithday,
         }
@@ -75,19 +88,21 @@ class CustomerService {
     async sendOTP(id,phone) {
 
         console.log("phone::"+phone);
-        const otp = GenerateOTP(6);
-        const otpTime = new Date();
-        otpTime.setMinutes(otpTime.getMinutes() + 1);
-        await CustomerRepository.UpdateCustomer(id, { phoneOtp: otp, otpTime: otpTime });
-        // send otp to phone
+        // const otp = GenerateOTP(6);
+        // const otpTime = new Date();
+        // otpTime.setMinutes(otpTime.getMinutes() + 1);
+        // await CustomerRepository.UpdateCustomer(id, { phoneOtp: otp, otpTime: otpTime });
+        // // send otp to phone
 
         twilio.verify.v2.services(process.env.TWILIO_VERIFY_SID)
                 .verifications
-                .create({ to: phone , channel: 'sms'})
+                .create({
+                    to: phone , 
+                    channel: 'sms'})
                 .then(verification => console.log(verification))
                 .catch(err => console.log(err));
 
-        
+  
     }
 
     async checkOTP(sendOtp,dbOtp,otpTime) {
@@ -150,6 +165,9 @@ class CustomerService {
         }
 
         const validatePassword = await ValidatePassword(password, existingCustomer.password, );
+        
+        let hashPassword = await GeneratePassword(password, existingCustomer.salt);
+        console.log(password, existingCustomer.password,hashPassword);
         if (validatePassword) {
             const token = await GenerateSignature({email:existingCustomer.email ,id:existingCustomer.id});
             return {

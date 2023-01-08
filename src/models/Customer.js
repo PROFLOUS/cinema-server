@@ -14,14 +14,9 @@ module.exports = function(sequelize, DataTypes) {
       comment: "Email"
     },
     password: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(60),
       allowNull: false,
       comment: "Password"
-    },
-    salt: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-      comment: "Salt"
     },
     isActivated: {
       type: DataTypes.BOOLEAN,
@@ -48,35 +43,31 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       comment: "Gender"
     },
-    brithday: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      comment: "Brithday"
-    },
     address: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
       comment: "Address"
     },
-    phoneOtp: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "Phone Otp"
-    },
-    otpTime : {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    ward_id: {
+    HierarchyAddressDistrict_id: {
       type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Ward Id",
-      references: {
-        model: 'Ward',
-        key: 'id'
-      }
+      allowNull: false
+    },
+    HierarchyAddressWard_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    HierarchyAddressCity_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    salt: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    brithday: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
     }
-  
   }, {
     sequelize,
     tableName: 'Customer',
@@ -88,13 +79,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "FK_Customer_Ward",
-        using: "BTREE",
-        fields: [
-          { name: "ward_id" },
         ]
       },
     ]

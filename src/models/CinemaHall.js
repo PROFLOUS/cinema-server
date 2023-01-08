@@ -31,21 +31,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Cinema',
         key: 'id'
       }
-    },
-    create_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Update Time"
     }
   }, {
     sequelize,
     tableName: 'CinemaHall',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",

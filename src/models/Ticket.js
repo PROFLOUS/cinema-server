@@ -50,21 +50,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Customer',
         key: 'id'
       }
-    },
-    create_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Update Time"
     }
   }, {
     sequelize,
     tableName: 'Ticket',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",

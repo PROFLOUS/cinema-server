@@ -58,15 +58,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       comment: "Price Sale"
     },
-    show_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Show Id",
-      references: {
-        model: 'Movie',
-        key: 'id'
-      }
-    },
     cinemaHallSeat_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -76,20 +67,18 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    create_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Update Time"
+    Shows_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'Shows',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
     tableName: 'PromotionFlashSale',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
@@ -100,17 +89,17 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "movie_id",
-        using: "BTREE",
-        fields: [
-          { name: "show_id" },
-        ]
-      },
-      {
         name: "cinemaHallSeat_id",
         using: "BTREE",
         fields: [
           { name: "cinemaHallSeat_id" },
+        ]
+      },
+      {
+        name: "fk_PromotionFlashSale_Shows1_idx",
+        using: "BTREE",
+        fields: [
+          { name: "Shows_id" },
         ]
       },
     ]

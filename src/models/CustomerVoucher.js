@@ -1,61 +1,56 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Comment', {
-    id: {
-      autoIncrement: true,
+  return sequelize.define('CustomerVoucher', {
+    status: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      primaryKey: true
+    },
+    usedDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    Customer_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      primaryKey: true,
-      comment: "Primary Key"
-    },
-    content: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      comment: "Content"
-    },
-    movie_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Movie Id",
       references: {
-        model: 'Movie',
+        model: 'Customer',
         key: 'id'
       }
     },
-    customer_id: {
+    PromotionVoucher_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Customer Id",
       references: {
-        model: 'Customer',
+        model: 'PromotionVoucher',
         key: 'id'
       }
     }
   }, {
     sequelize,
-    tableName: 'Comment',
-    timestamps: true,
+    tableName: 'CustomerVoucher',
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "id" },
+          { name: "status" },
         ]
       },
       {
-        name: "movie_id",
+        name: "fk_CustomerVoucher_Customer1_idx",
         using: "BTREE",
         fields: [
-          { name: "movie_id" },
+          { name: "Customer_id" },
         ]
       },
       {
-        name: "customer_id",
+        name: "fk_CustomerVoucher_PromotionVoucher1_idx",
         using: "BTREE",
         fields: [
-          { name: "customer_id" },
+          { name: "PromotionVoucher_id" },
         ]
       },
     ]

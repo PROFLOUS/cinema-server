@@ -72,15 +72,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    ward_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Ward Id",
-      references: {
-        model: 'Ward',
-        key: 'id'
-      }
-    },
     cinema_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -90,20 +81,22 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    create_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Create Time"
+    HierarchyAddressCity_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
     },
-    update_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Update Time"
+    HierarchyAddressDistris_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    HierarchyAddressWard_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
     }
   }, {
     sequelize,
     tableName: 'Staff',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
@@ -111,13 +104,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "ward_id",
-        using: "BTREE",
-        fields: [
-          { name: "ward_id" },
         ]
       },
       {

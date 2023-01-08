@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Food', {
     id: {
-      autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
@@ -37,21 +36,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "Sold"
-    },
-    create_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Update Time"
     }
   }, {
     sequelize,
     tableName: 'Food',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",

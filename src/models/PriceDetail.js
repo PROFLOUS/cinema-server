@@ -41,29 +41,18 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    cinemaHallSeat_id: {
+    CinemaHall_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Cinema Hall Seat Id",
       references: {
-        model: 'CinemaHallSeat',
+        model: 'CinemaHall',
         key: 'id'
       }
-    },
-    create_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Update Time"
     }
   }, {
     sequelize,
     tableName: 'PriceDetail',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
@@ -88,10 +77,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "cinemaHallSeat_id",
+        name: "fk_PriceDetail_CinemaHall1_idx",
         using: "BTREE",
         fields: [
-          { name: "cinemaHallSeat_id" },
+          { name: "CinemaHall_id" },
         ]
       },
     ]

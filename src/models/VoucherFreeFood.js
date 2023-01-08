@@ -21,21 +21,11 @@ module.exports = function(sequelize, DataTypes) {
         model: 'PromotionVoucher',
         key: 'id'
       }
-    },
-    create_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE(6),
-      allowNull: true,
-      comment: "Update Time"
     }
   }, {
     sequelize,
     tableName: 'VoucherFreeFood',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",

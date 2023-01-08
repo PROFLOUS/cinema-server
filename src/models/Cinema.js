@@ -23,15 +23,18 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       comment: "Total Cinema Hall"
     },
-    ward_id: {
+    HierarchyAddressCity_id: {
       type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Ward Id",
-      references: {
-        model: 'Ward',
-        key: 'id'
-      }
+      allowNull: true
     },
+    HierarchyAddressDistrict_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    HierarchyAddressWard_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    }
   }, {
     sequelize,
     tableName: 'Cinema',
@@ -43,13 +46,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
-        ]
-      },
-      {
-        name: "ward_id",
-        using: "BTREE",
-        fields: [
-          { name: "ward_id" },
         ]
       },
     ]

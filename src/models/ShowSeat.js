@@ -22,16 +22,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    create_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Create Time"
-    },
-    update_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      comment: "Update Time"
-    },
     cinemaSeat_id: {
       type: DataTypes.BIGINT,
       allowNull: true,
@@ -51,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'ShowSeat',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
