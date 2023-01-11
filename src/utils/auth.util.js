@@ -20,7 +20,7 @@ module.exports.ValidatePassword = async (
 };
   
 (module.exports.GenerateSignature = async (payload) => {
-    return await jwt.sign(payload, process.env.APP_SECRET, { expiresIn: "1d" });
+    return await jwt.sign(payload, process.env.APP_SECRET, { expiresIn: "3d" });
 }),
 
   
@@ -28,13 +28,14 @@ module.exports.ValidatePassword = async (
     const signature = req.get("Authorization");
 
     if (signature) {
-    const payload = await jwt.verify(signature.split(" ")[1], APP_SECRET);
+    const payload = await jwt.verify(signature.split(" ")[1], process.env.APP_SECRET);
     req.user = payload;
     return true;
     }
 
     return false;
 });
+
   
 module.exports.FormateData = (data) => {
 if (data) {

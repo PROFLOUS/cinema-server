@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     staff_id: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
       comment: "Staff Id",
       references: {
         model: 'Staff',

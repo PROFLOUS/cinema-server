@@ -1,5 +1,7 @@
 const CustomerRepository = require('../repository/customer.repository');
-const { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword,GenerateOTP } = require('../utils/auth.util');
+const StaffRepository = require('../repository/staff.repository');
+const RoleRepository = require('../repository/role.repository');
+const {  GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword,GenerateOTP } = require('../utils/auth.util');
 const axios = require('axios');
 require('dotenv').config();
 const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -16,70 +18,105 @@ class CustomerService {
         const { 
             email,password,phone,firstName,lastName,gender,address,
             HierarchyAddressDistrict_id,HierarchyAddressWard_id,
-            HierarchyAddressCity_id,brithday 
+            HierarchyAddressCity_id,brithday,position,start_date,status,manager_id,cinema_id
         } = userInputs;
-        
-        // Check email is exist
-        const isExist = await CustomerRepository.GetByEmail(email);
-        const isPhoneExist = await CustomerRepository.GetByPhone(phone);
-        if (isExist || isPhoneExist) {
-            return {
-                status: 400,
-                message: 'Email or Phone is exist'
-            }
-        }
 
         // create salt
         let salt = await GenerateSalt();
         // create password
         let hashPassword = await GeneratePassword(password, salt);
 
-        // create customer
-        const newCustomer ={
-            email,
-            password: hashPassword,
-            isActivated: false,
-            phone,
-            firstName,
-            lastName,
-            gender,
-            address,
-            HierarchyAddressDistrict_id,
-            HierarchyAddressWard_id,
-            HierarchyAddressCity_id,
-            salt,
-            brithday,
+        let messages ;
+
+        let isActivateds;
+
+        let _id;
+        
+        if(position){
+
+            // Check email is exist
+            const isExist = await StaffRepository.GetByEmail(email);
+            const isPhoneExist = await StaffRepository.GetByPhone(phone);
+            if (isExist || isPhoneExist) {
+                return {
+                    status: 400,
+                    message: 'Email or Phone is exist'
+                }
+            }
+
+            // create staff
+            const newStaff ={
+                email,
+                password: hashPassword,
+                isActivated: true,
+                phone,
+                firstName,
+                lastName,
+                gender,
+                address,
+                start_date,
+                status,
+                position,
+                manager_id,
+                cinema_id,
+                HierarchyAddressDistrict_id,
+                HierarchyAddressWard_id,
+                HierarchyAddressCity_id,
+                salt,
+            }
+
+            const existingStaff = await StaffRepository.CreateStaff(newStaff);
+            messages = "Sign up success";
+            isActivateds = existingStaff.isActivated;
+            _id = existingStaff.id;
+
+
+        }else{
+            // Check email is exist
+            const isExist = await CustomerRepository.GetByEmail(email);
+            const isPhoneExist = await CustomerRepository.GetByPhone(phone);
+            if (isExist || isPhoneExist) {
+                return {
+                    status: 400,
+                    message: 'Email or Phone is exist'
+                }
+            }
+
+            // create customer
+            const newCustomer ={
+                email,
+                password: hashPassword,
+                isActivated: false,
+                phone,
+                firstName,
+                lastName,
+                gender,
+                address,
+                HierarchyAddressDistrict_id,
+                HierarchyAddressWard_id,
+                HierarchyAddressCity_id,
+                salt,
+                brithday,
+            }
+
+            const existingCustomer = await CustomerRepository.CreateCustomer(newCustomer);
+
+            const { id } = existingCustomer;
+            const myPhone = existingCustomer.phone;
+            messages = "Please check your phone to verify your account";
+            isActivateds = existingCustomer.isActivated;
+            _id = existingCustomer.id;
+            this.sendOTP(id,myPhone);
         }
-
-        // await axios.post(
-        //     'https://verify.twilio.com/v2/Services/VAb11f15d24cf4a10d1366dabe9e28bc37/Verifications',
-        //     new URLSearchParams({
-        //         'To': phone,
-        //         'Channel': 'sms',
-        //         'TemplateSid': 'HJd2847507a6104c1622eaccf1f949af7d'
-        //     }),
-        //     {
-        //         auth: {
-        //             username: 'AC0e7c8d2832975d02ccd53f237d3715ea',
-        //             password: 'b79e3895091172fad67277a6a2d6f1f7'
-        //         }
-        //     }
-        // );
-
-        const existingCustomer = await CustomerRepository.CreateCustomer(newCustomer);
-
-        const { id } = existingCustomer;
-        const myPhone = existingCustomer.phone;
-        this.sendOTP(id,myPhone);
 
         return {
             status: 200,
-            message: "Account created OTP sended to mobile number",
+            messages,
             data: {
-                id,
+                _id,
                 email,
                 phone,
-                isActivated: existingCustomer.isActivated
+                isActivateds
             }
         }
 
@@ -154,8 +191,40 @@ class CustomerService {
     }
 
     async Login(userInputs) {
-        const { email,password } = userInputs;
-        const existingCustomer = await CustomerRepository.GetByEmail(email);
+        const { email,password,staff } = userInputs;
+        if(staff){
+            const existingStaff = await StaffRepository.GetByEmail(email);
+            let {nameRole} = await RoleRepository.GetNameRoleByStaffId(existingStaff.id);
+            if (!existingStaff) {
+                return {
+                    status: 400,
+                    message: 'Email is not exist'
+                }
+            }
+            const validatePassword = await ValidatePassword(password, existingStaff.password, );
+            
+            if (validatePassword) {
+                const token = await GenerateSignature({email:existingStaff.email ,id:existingStaff.id});
+                return {
+                    status: 200,
+                    message: 'Login success',
+                    data: {
+                        id: existingStaff.id,
+                        email: existingStaff.email,
+                        phone: existingStaff.phone,
+                        nameRole,
+                        token,
+                    }
+                }
+            }else{
+                return {
+                    status: 400,
+                    message: 'Password is not valid'
+                }
+            }
+
+        }else{
+            const existingCustomer = await CustomerRepository.GetByEmail(email);
         
         if (!existingCustomer) {
             return {
@@ -185,6 +254,7 @@ class CustomerService {
                 status: 400,
                 message: 'Password is not correct'
             }
+        }
         }
 
     }

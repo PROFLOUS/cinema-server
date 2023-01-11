@@ -1,11 +1,4 @@
-const Redis = require('ioredis');
-const redis = new Redis({
-    port: process.env.REDIS_PORT,
-    host: process.env.REDIS_HOST,
-    username: "default", // needs Redis >= 6
-    password: process.env.REDIS_PASSWORD,
-    db: 0,
-});
+const {redis} = require('../config/redis');
 
 const rateLimiter =  ({secondsWindow, allowedHits})=> {
 

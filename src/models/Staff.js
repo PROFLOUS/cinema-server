@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       comment: "Email"
     },
     password: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(60),
       allowNull: false,
       comment: "Password"
     },
@@ -74,7 +74,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     cinema_id: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
       comment: "Cinema Id",
       references: {
         model: 'Cinema',
@@ -85,14 +85,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BIGINT,
       allowNull: true
     },
-    HierarchyAddressDistris_id: {
+    HierarchyAddressDistrict_id: {
       type: DataTypes.BIGINT,
       allowNull: true
     },
     HierarchyAddressWard_id: {
       type: DataTypes.BIGINT,
       allowNull: true
-    }
+    },
+    salt: {
+      type: DataTypes.STRING(60),
+      allowNull: false
+    },
   }, {
     sequelize,
     tableName: 'Staff',

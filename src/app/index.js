@@ -20,7 +20,6 @@ const models = initModels(db);
 // });
 
 
-
 // models.Ward.sync({focus:false}).then(() => {
 //     console.log("District table created");
 // }).catch((err) => {
@@ -32,7 +31,7 @@ const models = initModels(db);
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
-
+app.use(express.urlencoded({ extended: true }));
 // routes
 routes(app);
 
