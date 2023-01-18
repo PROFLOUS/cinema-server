@@ -10,6 +10,9 @@ const route = (app) => {
     app.use('/cinemaHall', cinemaHallRouter);
     app.use('/address', addressRouter);
     app.use('/addressPath', addressPathRouter);
+    app.use('/test', (req, res) => {
+        res.send("Hello World");
+    });
 };
 
 module.exports = route;
