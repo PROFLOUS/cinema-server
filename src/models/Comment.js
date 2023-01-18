@@ -1,63 +1,40 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Comment', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      primaryKey: true,
-      comment: "Primary Key"
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const Customer = require("../models/Customer");
+const Movie = require("../models/Movie");
+
+const Comment = db.define(
+    "Comment",
+    {
+        id: {
+            autoIncrement: true,
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            primaryKey: true,
+        },
+        content: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+        },
+        idCustomer: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        idMovie: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
     },
-    content: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      comment: "Content"
-    },
-    movie_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Movie Id",
-      references: {
-        model: 'Movie',
-        key: 'id'
-      }
-    },
-    customer_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      comment: "Customer Id",
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
+    {
+        freezeTableName: true,
+        timestamps: true,
     }
-  }, {
-    sequelize,
-    tableName: 'Comment',
-    timestamps: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "movie_id",
-        using: "BTREE",
-        fields: [
-          { name: "movie_id" },
-        ]
-      },
-      {
-        name: "customer_id",
-        using: "BTREE",
-        fields: [
-          { name: "customer_id" },
-        ]
-      },
-    ]
-  });
-};
+);
+
+Comment.belongsTo(Customer, { foreignKey: "idCustomer" });
+Customer.hasMany(Comment, { foreignKey: "idCustomer" });
+
+Comment.belongsTo(Movie, { foreignKey: "idMovie" });
+Movie.hasMany(Comment, { foreignKey: "idMovie" });
+
+module.exports = Comment;

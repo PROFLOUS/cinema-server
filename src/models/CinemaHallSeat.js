@@ -1,62 +1,44 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('CinemaHallSeat', {
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const CinemaHall = require("../models/CinemaHall");
+
+const CinemaHallSeat = db.define(
+  "CinemaHallSeat",
+  {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
-      comment: "Primary Key"
     },
-    seat_row: {
+    seatRow: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      comment: "Row"
     },
-    seat_column: {
-      type: DataTypes.INTEGER,
+    seatColumn: {
+      type: DataTypes.STRING(2),
       allowNull: false,
-      comment: "Column"
     },
-    type: {
-      type: DataTypes.ENUM('PRIMEUM','NORMAL'),
-      allowNull: true,
-      comment: "PRIME or NORMAL"
-    },
-    status: {
-      type: DataTypes.STRING(50),
+    typeSeat: {
+      type: DataTypes.ENUM("PRIMEUM", "SINGLE", "COUPLE"),
       allowNull: false,
-      comment: "Status"
     },
-    cinemaHall_id: {
+    statusSeat: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idCinemaHall: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Cinema Hall Id",
-      references: {
-        model: 'CinemaHall',
-        key: 'id'
-      }
-    }
-  }, {
-    sequelize,
-    tableName: 'CinemaHallSeat',
+    },
+  },
+  {
+    freezeTableName: true,
     timestamps: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "cinemaHall_id",
-        using: "BTREE",
-        fields: [
-          { name: "cinemaHall_id" },
-        ]
-      },
-    ]
-  });
-};
+  }
+);
+
+CinemaHallSeat.belongsTo(CinemaHall, { foreignKey: "idCinemaHall" });
+CinemaHall.hasMany(CinemaHallSeat, { foreignKey: "idCinemaHall" });
+
+module.exports = CinemaHallSeat;

@@ -1,83 +1,64 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Ticket', {
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const Show = require("../models/Show");
+const Customer = require("../models/Customer");
+const Staff = require("../models/Staff");
+
+const Ticket = db.define(
+  "Ticket",
+  {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
-      comment: "Primary Key"
     },
-    numberOfSeat: {
+    numberOfseat: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      comment: "Number Of Seat"
     },
     status: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(10),
       allowNull: false,
-      comment: "Status"
     },
     form: {
       type: DataTypes.STRING(10),
       allowNull: false,
-      comment: "Form"
-    },
-    totalPrice: {
-      type: DataTypes.DOUBLE,
-      allowNull: false,
-      comment: "Total Price"
     },
     note: {
       type: DataTypes.TEXT,
       allowNull: false,
-      comment: "Note"
     },
-    show_id: {
+    totalPrice: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    idShow: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Show Id",
-      references: {
-        model: 'Shows',
-        key: 'id'
-      }
     },
-    customer_id: {
+    idCustomer: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Customer Id",
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
-    }
-  }, {
-    sequelize,
-    tableName: 'Ticket',
+    },
+    idStaff: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+  },
+  {
+    freezeTableName: true,
     timestamps: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "show_id",
-        using: "BTREE",
-        fields: [
-          { name: "show_id" },
-        ]
-      },
-      {
-        name: "customer_id",
-        using: "BTREE",
-        fields: [
-          { name: "customer_id" },
-        ]
-      },
-    ]
-  });
-};
+  }
+);
+
+Ticket.belongsTo(Show, { foreignKey: "idShow" });
+Show.hasMany(Ticket, { foreignKey: "idShow" });
+
+Ticket.belongsTo(Customer, { foreignKey: "idCustomer" });
+Customer.hasMany(Ticket, { foreignKey: "idCustomer" });
+
+Ticket.belongsTo(Staff, { foreignKey: "idStaff" });
+Staff.hasMany(Ticket, { foreignKey: "idStaff" });
+
+module.exports = Ticket;

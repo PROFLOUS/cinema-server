@@ -1,9 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const Staff = require("../models/Staff");
 
-const Role = db.define(
-    "Role",
+const CategoryMovie = db.define(
+    "CategoryMovie",
     {
         id: {
             autoIncrement: true,
@@ -11,16 +10,16 @@ const Role = db.define(
             allowNull: false,
             primaryKey: true,
         },
-        nameRole: {
+        nameCategory: {
             type: DataTypes.STRING(50),
             allowNull: false,
         },
-        description: {
-            type: DataTypes.STRING(255),
+        title:{
+            type: DataTypes.STRING(50),
             allowNull: false,
         },
-        staff_id: {
-            type: DataTypes.BIGINT,
+        desc: {
+            type: DataTypes.STRING(50),
             allowNull: false,
         },
     },
@@ -30,8 +29,4 @@ const Role = db.define(
     }
 );
 
-Role.belongsTo(Staff, { foreignKey: "staff_id" });
-Staff.hasMany(Role, { foreignKey: "staff_id" });
-
-module.exports = Role;
-
+module.exports = CategoryMovie;

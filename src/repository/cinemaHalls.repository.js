@@ -1,15 +1,13 @@
-const initModels = require('../models/init-models');
-const sequelize = require('../config/database');
-const models = initModels(sequelize);
+const CinemaHall = require("../models/CinemaHall");
 
 class CinemaHallRepository {
     
     async getAllCinemaHall() {
-        return await models.CinemaHall.findAll();
+        return await CinemaHall.findAll();
     }
 
     async getCinemaHallById(id) {
-        return await models.CinemaHall.findOne({
+        return await CinemaHall.findOne({
             where: {
                 id: id
             }
@@ -17,7 +15,7 @@ class CinemaHallRepository {
     }
 
     async getCinemaHallByName(name) {
-        return await models.CinemaHall.findOne({
+        return await CinemaHall.findOne({
             where: {
                 name: name
             }

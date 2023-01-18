@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 
-const HierarchyAddress = db.define(
-  "HierarchyAddress",
+const Product = db.define(
+  "Product",
   {
     id: {
       autoIncrement: true,
@@ -10,31 +10,27 @@ const HierarchyAddress = db.define(
       allowNull: false,
       primaryKey: true,
     },
+    nameProduct: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
     type: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
-    code: {
+    productCode: {
       type: DataTypes.STRING(10),
-      allowNull: true,
-    },
-    value: {
-      type: DataTypes.STRING(20),
       allowNull: false,
     },
-    level: {
+    qty: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    parentCode: {
-      type: DataTypes.STRING(20),
-      allowNull: true,
     },
   },
   {
-    timestamps: true,
     freezeTableName: true,
+    timestamps: true,
   }
 );
 
-module.exports = HierarchyAddress;
+module.exports = Product;

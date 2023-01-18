@@ -1,86 +1,78 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Customer', {
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const AddressPath = require("../models/AddressPath");
+
+const Customer = db.define(
+  "Customer",
+  {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
-      comment: "Primary Key"
+      comment: "Primary Key",
     },
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      comment: "Email"
+      comment: "Email",
     },
     password: {
       type: DataTypes.STRING(60),
       allowNull: false,
-      comment: "Password"
+      comment: "Password",
     },
     isActivated: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      comment: "Is Activated"
+      comment: "Is Activated",
     },
     phone: {
       type: DataTypes.STRING(10),
       allowNull: false,
-      comment: "Phone Number"
+      comment: "Phone Number",
     },
     firstName: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      comment: "First Name"
+      comment: "First Name",
     },
     lastName: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      comment: "Last Name"
+      comment: "Last Name",
     },
     gender: {
       type: DataTypes.STRING(1),
       allowNull: false,
-      comment: "Gender"
+      comment: "Gender",
     },
-    address: {
-      type: DataTypes.STRING(255),
+    idAddressPath: {
+      type: DataTypes.BIGINT,
       allowNull: false,
-      comment: "Address"
-    },
-    HierarchyAddressDistrict_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false
-    },
-    HierarchyAddressWard_id: {
-      type: DataTypes.BIGINT,
-      allowNull: false
-    },
-    HierarchyAddressCity_id: {
-      type: DataTypes.BIGINT,
-      allowNull: true
     },
     salt: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: false,
     },
     brithday: {
       type: DataTypes.DATEONLY,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'Customer',
+      allowNull: true,
+    },
+    refreshToken: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+  },
+  {
     timestamps: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-    ]
-  });
-};
+    freezeTableName: true,
+  }
+);
+
+Customer.belongsTo(AddressPath, { foreignKey: "idAddressPath" });
+AddressPath.hasMany(Customer, { foreignKey: "idAddressPath" });
+
+
+
+module.exports = Customer;

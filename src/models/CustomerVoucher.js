@@ -1,58 +1,44 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('CustomerVoucher', {
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const Customer = require("./Customer");
+const PromotionLine = require("./PromotionLine");
+
+const CustomerVoucher = db.define(
+  "CustomerVoucher",
+  {
+    id: {
+      autoIncrement: true,
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      primaryKey: true,
+    },
     status: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.STRING(50),
       allowNull: false,
-      primaryKey: true
     },
-    usedDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false
+    dateUsed: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
-    Customer_id: {
+    idCustomer: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
     },
-    PromotionVoucher_id: {
+    idVoucher: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      references: {
-        model: 'PromotionVoucher',
-        key: 'id'
-      }
-    }
-  }, {
-    sequelize,
-    tableName: 'CustomerVoucher',
-    timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "status" },
-        ]
-      },
-      {
-        name: "fk_CustomerVoucher_Customer1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "Customer_id" },
-        ]
-      },
-      {
-        name: "fk_CustomerVoucher_PromotionVoucher1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "PromotionVoucher_id" },
-        ]
-      },
-    ]
-  });
-};
+    },
+  },
+  {
+    freezeTableName: true,
+    timestamps: true,
+  }
+);
+
+CustomerVoucher.belongsTo(Customer, { foreignKey: "idCustomer" });
+Customer.hasMany(CustomerVoucher, { foreignKey: "idCustomer" });
+
+CustomerVoucher.belongsTo(PromotionLine, { foreignKey: "idVoucher" });
+PromotionLine.hasMany(CustomerVoucher, { foreignKey: "idVoucher" });
+
+module.exports = CustomerVoucher;

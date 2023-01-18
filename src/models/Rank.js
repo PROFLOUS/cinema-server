@@ -1,9 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const Staff = require("../models/Staff");
 
-const Role = db.define(
-    "Role",
+const Rank = db.define(
+    "Rank",
     {
         id: {
             autoIncrement: true,
@@ -11,16 +10,16 @@ const Role = db.define(
             allowNull: false,
             primaryKey: true,
         },
-        nameRole: {
+        nameRank: {
+            type: DataTypes.STRING(20),
+            allowNull: false,
+        },
+        point: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        desc: {
             type: DataTypes.STRING(50),
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.STRING(255),
-            allowNull: false,
-        },
-        staff_id: {
-            type: DataTypes.BIGINT,
             allowNull: false,
         },
     },
@@ -30,8 +29,6 @@ const Role = db.define(
     }
 );
 
-Role.belongsTo(Staff, { foreignKey: "staff_id" });
-Staff.hasMany(Role, { foreignKey: "staff_id" });
+module.exports = Rank;
 
-module.exports = Role;
 

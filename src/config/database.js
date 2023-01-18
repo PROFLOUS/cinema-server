@@ -16,4 +16,9 @@ sequelize.authenticate().then(() => {
     console.error('Unable to connect to the database: ', error);
  });
 
+//  sequelize.sync({force: false}).then(() => {
+//     console.log("Database & tables created!");
+// });
+
+
  module.exports = sequelize;

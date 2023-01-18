@@ -1,15 +1,13 @@
-const initModels = require('../models/init-models');
-const sequelize = require('../config/database');
-const models = initModels(sequelize);
+const Staff = require("../models/Staff");
 
 class StaffRepository {
     
     async CreateStaff(staff) {
-        return await models.Staff.create(staff);
+        return await Staff.create(staff);
     }
 
     async GetByEmail(email) {
-        return await models.Staff.findOne({
+        return await Staff.findOne({
             where: {
                 email: email
             }
@@ -17,7 +15,7 @@ class StaffRepository {
     }
 
     async GetByPhone(phone) {
-        return await models.Staff.findOne({
+        return await Staff.findOne({
             where: {
                 phone: phone
             }
@@ -25,7 +23,7 @@ class StaffRepository {
     }
 
     async GetById(id) {
-        return await models.Staff.findOne({
+        return await Staff.findOne({
             where: {
                 id: id
             }
@@ -33,7 +31,7 @@ class StaffRepository {
     }
 
     async UpdateStaff(id, staff) {
-        return await models.Staff.update(staff, {
+        return await Staff.update(staff, {
             where: {
                 id: id
             }
@@ -41,11 +39,11 @@ class StaffRepository {
     }
 
     async GetStaffs() {
-        return await models.Staff.findAll();
+        return await Staff.findAll();
     }
 
     async GetStaffsByRole(role) {
-        return await models.Staff.findAll({
+        return await Staff.findAll({
             where: {
                 role: role
             }
@@ -53,7 +51,7 @@ class StaffRepository {
     }
 
     async GetRoleByStaffId(id) {
-        return await models.Staff.findOne({
+        return await Staff.findOne({
             where: {
                 id: id
             }
@@ -62,7 +60,7 @@ class StaffRepository {
 
 
     async DeleteStaff(id) {
-        return await models.Staff.destroy({
+        return await Staff.destroy({
             where: {
                 id: id
             }

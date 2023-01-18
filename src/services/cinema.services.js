@@ -2,6 +2,7 @@ const CinemaRepository = require('../repository/cinema.repository');
 
 class CinemaService {
 
+
     async getAllCinema() {
         return await CinemaRepository.getAllCinema();
     }

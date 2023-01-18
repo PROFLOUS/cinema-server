@@ -1,11 +1,9 @@
-const initModels = require('../models/init-models');
-const sequelize = require('../config/database');
-const models = initModels(sequelize);
+const Role = require("../models/Role");
 
 class RoleRepository {
 
     async GetNameRoleByStaffId(id) {
-        return await models.Role.findOne({
+        return await Role.findOne({
             where: {
                 staff_id: id
             }

@@ -4,14 +4,25 @@ const bodyParser = require('body-parser');
 const useragent = require("express-useragent")
 const routes = require('../routes');
 require('dotenv').config();
-const initModels = require('../models/init-models');
+// const FoodType = require('../_models/FoodType');
+// const Food = require('../_models/Food');
+
 const app = express();
 
 const port = process.env.PORT || 3001;
 
 // connect to database
 const db = require('../config/database');
-const models = initModels(db);
+
+db.sync({ alter: true });
+
+// db.sync().then(() => {
+//     console.log("Database connected");
+// }).catch((err) => {
+//     console.log("Database not connected",err);
+// });
+// const models = initModels(db);
+
 
 // models.Customer.findAll().then((data) => {
 //     console.log(data);

@@ -1,45 +1,51 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Membership', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      primaryKey: true,
-      comment: "Primary Key",
-      references: {
-        model: 'Customer',
-        key: 'id'
-      }
+const { DataTypes } = require("sequelize");
+const db = require("../config/database");
+const Customer = require("../models/Customer");
+const Rank = require("../models/Rank");
+
+
+const MemberShip = db.define(
+    "MemberShip",
+    {
+        id: {
+            autoIncrement: true,
+            type: DataTypes.BIGINT,
+            allowNull: false,
+            primaryKey: true,
+        },
+        pointHightest: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        currentPoint: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        desc: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+        },
+        idCustomer: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        idRank: {
+            type: DataTypes.BIGINT,
+            allowNull: false,
+        },
     },
-    point_hightest: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      comment: "Point Hightest"
-    },
-    current_point: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      comment: "Current Point"
-    },
-    description: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-      comment: "Description"
+    {
+        freezeTableName: true,
+        timestamps: false,
     }
-  }, {
-    sequelize,
-    tableName: 'Membership',
-    timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-    ]
-  });
-};
+);
+
+MemberShip.belongsTo(Customer, { foreignKey: "idCustomer" });
+Customer.hasOne(MemberShip);
+
+MemberShip.belongsTo(Rank, { foreignKey: "idRank" });
+Rank.hasMany(MemberShip, { foreignKey: "idRank" });
+
+
+module.exports = MemberShip;
+
