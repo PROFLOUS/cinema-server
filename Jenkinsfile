@@ -7,7 +7,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                git 'https://github.com/sp2728/practice.git'
+                git 'https://github.com/PROFLOUS/cinema-server.git'
             }
         }
 
