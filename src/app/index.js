@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const useragent = require("express-useragent")
 const routes = require('../routes');
+const https = require('https');
 require('dotenv').config();
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
@@ -46,7 +47,16 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 routes(app);
 
+const options = {
+    key: fs.readFileSync('../../ssl/server-key.pem'),
+    cert: fs.readFileSync('../../ssl/server-cert.pem'),
+};
 
-app.listen(port, () => {
+https.createServer(options, app).listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 });
+
+
+// app.listen(port, () => {
+//     console.log(`Example app listening at http://localhost:${port}`)
+// });
