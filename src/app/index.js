@@ -10,12 +10,12 @@ require("dotenv").config();
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
-const key = fs.readFileSync(path.resolve('ssl/server-key.pem'));
-const cert = fs.readFileSync(path.resolve('ssl/server-cert.pem'));
-const options = {
-  key: key,
-  cert: cert
-};
+// const key = fs.readFileSync(path.resolve('ssl/server-key.pem'));
+// const cert = fs.readFileSync(path.resolve('ssl/server-cert.pem'));
+// const options = {
+//   key: key,
+//   cert: cert
+// };
 
 const app = express();
 
@@ -35,10 +35,10 @@ routes(app);
 
 
 
-https.createServer(options, app).listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
-
-// app.listen(port, () => {
-//     console.log(`Example app listening at http://localhost:${port}`)
+// https.createServer(options, app).listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
 // });
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+});

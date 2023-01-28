@@ -73,6 +73,4 @@ const Customer = db.define(
 Customer.belongsTo(AddressPath, { foreignKey: "idAddressPath" });
 AddressPath.hasMany(Customer, { foreignKey: "idAddressPath" });
 
-
-
 module.exports = Customer;
