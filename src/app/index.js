@@ -10,14 +10,13 @@ require("dotenv").config();
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
-// const key = fs.readFileSync(path.resolve('ssl/server-key.pem'));
-// const cert = fs.readFileSync(path.resolve('ssl/server-cert.pem'));
-// const options = {
-//   key: key,
-//   cert: cert
-// };
+const key = fs.readFileSync(path.resolve('ssl/private.key'));
+const cert = fs.readFileSync(path.resolve('ssl/certificate.crt'));
+const options = {
+  key: key,
+  cert: cert
+};
 
-const file = fs.readFileSync(path.resolve('src/app/84F9E86DF5EB8193396932F1FEE06C26.txt'));
 
 const app = express();
 
@@ -33,18 +32,13 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 // routes
-// routes(app);
-
-app.get('/.well-known/pki-validation/84F9E86DF5EB8193396932F1FEE06C26.txt', (req, res) => {
-    res.sendFile(path.resolve('src/app/84F9E86DF5EB8193396932F1FEE06C26.txt'));
-})
+routes(app);
 
 
-
-// https.createServer(options, app).listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+https.createServer(options, app).listen(3005, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
+
+// app.listen(port, () => {
+//     console.log(`Example app listening at http://localhost:${port}`)
+// });
