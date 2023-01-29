@@ -19,7 +19,7 @@ const options = {
 
 
 const app = express();
-
+const httpsServer = https.createServer(options, app);
 const port = process.env.PORT;
 
 // connect to database
@@ -34,10 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 routes(app);
 
-
-https.createServer(options, app).listen(3005, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+httpsServer.listen(3005);
 
 // app.listen(port, () => {
 //     console.log(`Example app listening at http://localhost:${port}`)
