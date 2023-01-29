@@ -17,6 +17,8 @@ require("dotenv").config();
 //   cert: cert
 // };
 
+const file = fs.readFileSync(path.resolve('src/app/84F9E86DF5EB8193396932F1FEE06C26.txt'));
+
 const app = express();
 
 const port = process.env.PORT;
@@ -31,7 +33,11 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 // routes
-routes(app);
+// routes(app);
+
+app.get('/.well-known/pki-validation/84F9E86DF5EB8193396932F1FEE06C26.txt', (req, res) => {
+    res.sendFile(path.resolve('src/app/84F9E86DF5EB8193396932F1FEE06C26.txt'));
+})
 
 
 
