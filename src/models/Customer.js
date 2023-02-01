@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const AddressPath = require("../models/AddressPath");
+
 
 const Customer = db.define(
   "Customer",
@@ -47,22 +47,30 @@ const Customer = db.define(
       allowNull: false,
       comment: "Gender",
     },
-    idAddressPath: {
-      type: DataTypes.BIGINT,
+    city_id: {
+      type: DataTypes.STRING(50),
       allowNull: false,
+    },
+    district_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    ward_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    street: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
     },
     salt: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    brithday: {
-      type: DataTypes.DATEONLY,
+    dob: {
+      type: DataTypes.DATE,
       allowNull: true,
-    },
-    refreshToken: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
+    }
   },
   {
     timestamps: true,
@@ -70,7 +78,5 @@ const Customer = db.define(
   }
 );
 
-Customer.belongsTo(AddressPath, { foreignKey: "idAddressPath" });
-AddressPath.hasMany(Customer, { foreignKey: "idAddressPath" });
 
 module.exports = Customer;

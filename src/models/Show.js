@@ -2,6 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 const CinemaHall = require("../models/CinemaHall");
 const Movie = require("../models/Movie");
+const Cinema = require("../models/Cinema");
 
 const Show = db.define(
   "Show",
@@ -28,6 +29,10 @@ const Show = db.define(
       type: DataTypes.BIGINT,
       allowNull: false,
     },
+    idCinema: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
@@ -40,5 +45,10 @@ CinemaHall.hasMany(Show, { foreignKey: "idCinemaHall" });
 
 Show.belongsTo(Movie, { foreignKey: "idMovie" });
 Movie.hasMany(Show, { foreignKey: "idMovie" });
+
+Show.belongsTo(Cinema, { foreignKey: "idCinema" });
+Cinema.hasMany(Show, { foreignKey: "idCinema" });
+
+
 
 module.exports = Show;

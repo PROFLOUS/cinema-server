@@ -40,6 +40,10 @@ const Staff = db.define(
       type: DataTypes.STRING(1),
       allowNull: false,
     },
+    dob: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     start_date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -64,13 +68,21 @@ const Staff = db.define(
       type: DataTypes.STRING(60),
       allowNull: false,
     },
-    refreshTokens: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
-    idAddressPath: {
-      type: DataTypes.BIGINT,
+    city_id: {
+      type: DataTypes.STRING(50),
       allowNull: false,
+    },
+    district_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    ward_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    street: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
     },
   },
   {
@@ -79,8 +91,6 @@ const Staff = db.define(
   }
 );
 
-Staff.belongsTo(AddressPath, { foreignKey: "idAddressPath" });
-AddressPath.hasMany(Staff, { foreignKey: "idAddressPath" });
 Staff.belongsTo(Cinema, { foreignKey: "cinema_id" });
 Cinema.hasMany(Staff, { foreignKey: "cinema_id" });
 Staff.belongsTo(Staff, { foreignKey: "manager_id" });

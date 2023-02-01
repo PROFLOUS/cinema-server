@@ -42,6 +42,19 @@ class AuthController {
             })
         }
     }
+
+    //[POST] /refresh-token
+    async RefreshToken(req, res) {
+        try{
+            const rs = await authServices.RefreshToken(req.body);
+            res.status(rs.status).json(rs);
+        }catch(err){
+            res.status(500).json({
+                status: 500,
+                message: err.message
+            })
+        }
+    }
         
 
 }

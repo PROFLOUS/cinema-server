@@ -19,8 +19,8 @@ module.exports.ValidatePassword = async (
     return await bcrypt.compare(enteredPassword, savedPassword);
 };
   
-(module.exports.GenerateSignature = async (payload) => {
-    return await jwt.sign(payload, process.env.APP_SECRET, { expiresIn: "3d" });
+(module.exports.GenerateSignature = async (payload,tokenSecret,tokenLife) => {
+    return await jwt.sign(payload, tokenSecret, { expiresIn: tokenLife });
 }),
 
   
@@ -28,13 +28,22 @@ module.exports.ValidatePassword = async (
     const signature = req.get("Authorization");
 
     if (signature) {
-    const payload = await jwt.verify(signature.split(" ")[1], process.env.APP_SECRET);
-    req.user = payload;
-    return true;
+    try {
+        const payload = await jwt.verify(signature, process.env.ACCESS_TOKEN_SECRET);
+        req.user = payload;
+        return true;
+    } catch (error) {
+        return false;
+    }
     }
 
     return false;
 });
+
+module.exports.ValidateSignatureRefresh = async (refreshToken) => {
+    const payload = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    return payload;
+};
 
   
 module.exports.FormateData = (data) => {

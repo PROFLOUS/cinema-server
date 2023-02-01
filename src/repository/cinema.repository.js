@@ -22,11 +22,11 @@ class CinameRepository {
     }
 
     async createCinema(cinema) {
-        return await models.Cinema.create(cinema);
+        return await Cinema.create(cinema);
     }
 
     async updateCinema(id, cinema) {
-        return await models.Cinema.update(cinema, {
+        return await Cinema.update(cinema, {
             where: {
                 id: id
             }
@@ -34,7 +34,7 @@ class CinameRepository {
     }
 
     async deleteCinema(id) {
-        return await models.Cinema.destroy({
+        return await Cinema.destroy({
             where: {
                 id: id
             }

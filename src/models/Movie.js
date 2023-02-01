@@ -15,11 +15,23 @@ const Movie = db.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    title: {
+    cast: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    director: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+    },
     desc: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    classify: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
@@ -35,6 +47,10 @@ const Movie = db.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     country: {
       type: DataTypes.STRING(50),
       allowNull: false,
@@ -45,6 +61,10 @@ const Movie = db.define(
     },
     idCategoryMovie: {
       type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING(255),
       allowNull: false,
     },
   },

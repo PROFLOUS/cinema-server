@@ -5,18 +5,18 @@ const useragent = require("express-useragent");
 const routes = require("../routes");
 const https = require("https");
 const fs = require("fs");
-var path = require('path');
+var path = require("path");
 require("dotenv").config();
+require("../config/redis");
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
-const key = fs.readFileSync(path.resolve('ssl/private.key'));
-const cert = fs.readFileSync(path.resolve('ssl/certificate.crt'));
+const key = fs.readFileSync(path.resolve("ssl/private.key"));
+const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
 const options = {
   key: key,
-  cert: cert
+  cert: cert,
 };
-
 
 const app = express();
 const httpsServer = https.createServer(options, app);
@@ -25,7 +25,8 @@ const port = process.env.PORT;
 // connect to database
 const db = require("../config/database");
 
-db.sync({ alter: true });
+// db.sync({ alter: true });
+db.sync();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors({ origin: true, credentials: true }));
@@ -36,6 +37,6 @@ routes(app);
 
 httpsServer.listen(3005);
 
-// app.listen(port, () => {
-//     console.log(`Example app listening at http://localhost:${port}`)
-// });
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});

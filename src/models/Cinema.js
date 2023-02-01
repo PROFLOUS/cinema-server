@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const AddressPath = require("../models/AddressPath");
+
 
 const Cinema = db.define(
   "Cinema",
@@ -19,9 +19,25 @@ const Cinema = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    idAddressPath: {
-      type: DataTypes.BIGINT,
+    descCinemaHall: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    city_id: {
+      type: DataTypes.STRING(50),
       allowNull: false,
+    },
+    district_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    ward_id: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    street: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
     },
   },
   {
@@ -29,8 +45,5 @@ const Cinema = db.define(
     freezeTableName: true,
   }
 );
-
-Cinema.belongsTo(AddressPath, { foreignKey: "idAddressPath" });
-AddressPath.hasMany(Cinema, { foreignKey: "idAddressPath" });
 
 module.exports = Cinema;

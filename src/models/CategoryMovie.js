@@ -16,11 +16,11 @@ const CategoryMovie = db.define(
         },
         title:{
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
         },
         desc: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
         },
     },
     {
