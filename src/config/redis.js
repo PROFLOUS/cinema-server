@@ -1,14 +1,17 @@
 const util = require("util");
 const redis = require("redis");
 // 6379
-
 const client = redis.createClient({
-  socket: {
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-  },
-  password: process.env.REDIS_PASSWORD,
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
 });
+// const client = redis.createClient({
+//   socket: {
+//     host: process.env.REDIS_HOST,
+//     port: process.env.REDIS_PORT,
+//   },
+//   password: process.env.REDIS_PASSWORD,
+// });
 
 client.on("connect", function () {
   console.log("Redis Connected!");
