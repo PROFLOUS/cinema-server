@@ -12,7 +12,6 @@ const client = redis.createClient({
 //   },
 //   password: process.env.REDIS_PASSWORD,
 // });
-
 client.on("connect", function () {
   console.log("Redis Connected!");
 });
