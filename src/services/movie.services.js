@@ -3,15 +3,19 @@ const redisDb = require("../config/redis");
 
 class MovieService {
   async getAllMovie() {
-    const movies = await redisDb.get("movies");
-    if (movies) {
-      console.log("Get data from redis");
-      return JSON.parse(movies);
+    try {
+      const movies = await redisDb.get("movies");
+      if (movies) {
+        console.log("Get data from redis");
+        return JSON.parse(movies);
+      }
+      const data = await MovieRepository.getAllMovie();
+      console.log("Get data from database");
+      await redisDb.set("movies", JSON.stringify(data), 60);
+      return data;
+    } catch (err) {
+      throw err;
     }
-    const data = await MovieRepository.getAllMovie();
-    console.log("Get data from database");
-    await redisDb.set("movies", JSON.stringify(data), 60);
-    return data;
   }
 
   async getMovieById(id) {
