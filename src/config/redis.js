@@ -1,9 +1,13 @@
 const util = require("util");
 const redis = require("redis");
 // 6379
+// const client = redis.createClient({
+//   host: process.env.REDIS_HOST,
+//   port: process.env.REDIS_PORT,
+// });
+
 const client = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+    url:'redis://redis:6379'
 });
 // const client = redis.createClient({
 //   socket: {
@@ -17,7 +21,7 @@ client.on("connect", function () {
 });
 
 client.on("error", function (error) {
-  console.error("Redis Error: ", error);
+  throw error;
 });
 
 const setClient = util.promisify(client.set).bind(client);

@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  web:
+    image: cineam
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      REDIS_URL: redis://redis:6379
+    ports:
+      - 3005:3005
+
+  redis:
+    image: redis
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - 6379:6379
+    volumes:
+      - .db:/data
+    restart: always
+    entrypoint: redis-server --appendonly yes
