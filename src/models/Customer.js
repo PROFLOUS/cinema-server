@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 
-
 const Customer = db.define(
   "Customer",
   {
@@ -70,13 +69,12 @@ const Customer = db.define(
     dob: {
       type: DataTypes.DATE,
       allowNull: true,
-    }
+    },
   },
   {
     timestamps: true,
     freezeTableName: true,
   }
 );
-
 
 module.exports = Customer;
