@@ -1,4 +1,14 @@
-version: '3.4'
+version: '3'
+
+redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - .db:/data
+    restart: on-failure:5
+    networks:
+      - zelo
 
 services:
   web:
@@ -7,19 +17,17 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      REDIS_URL: redis://redis:6379
+       REDIS_HOST: redis
+      REDIS_PORT: 6379
     ports:
       - 3005:3005
+    depends_on:
+      - redis
+    networks:
+      - zelo
 
-  redis:
-    image: redis
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-    ports:
-      - 6379:6379
-    volumes:
-      - .db:/data
-    restart: always
-    entrypoint: redis-server --appendonly yes
+  
+
+networks:
+  zelo:
+    driver: bridge
