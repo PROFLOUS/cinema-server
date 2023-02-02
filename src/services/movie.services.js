@@ -14,7 +14,11 @@ class MovieService {
       await redisDb.set("movies", JSON.stringify(data), 60);
       return data;
     } catch (err) {
-      throw err;
+      return {
+        message: "Something went wrong",
+        error: err,
+        status: 500,
+      }
     }
   }
 

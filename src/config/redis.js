@@ -27,7 +27,7 @@ client.on("connect", function () {
 });
 
 client.on("error", function (error) {
-  throw error;
+  console.error("Redis Error: ", error);
 });
 
 const setClient = util.promisify(client.set).bind(client);
