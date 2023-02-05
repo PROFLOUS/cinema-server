@@ -11,19 +11,16 @@ require("./src/config/redis");
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
-const file = fs.readFileSync(
-  path.resolve("1C51E7CEA5638CAE1AB83102DD479B75.txt")
-);
 
-// const key = fs.readFileSync(path.resolve("ssl/private.key"));
-// const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
-// const options = {
-//   key: key,
-//   cert: cert,
-// };
+const key = fs.readFileSync(path.resolve("ssl/private.key"));
+const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
+const options = {
+  key: key,
+  cert: cert,
+};
 
 const app = express();
-// const httpsServer = https.createServer(options, app);
+const httpsServer = https.createServer(options, app);
 const port = process.env.PORT;
 
 // connect to database
@@ -37,15 +34,9 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 // routes
-// routes(app);
-app.get(
-  "/.well-known/pki-validation/1C51E7CEA5638CAE1AB83102DD479B75.txt",
-  (req, res) => {
-    res.sendFile('1C51E7CEA5638CAE1AB83102DD479B75.txt', { root: __dirname });
-  }
-);
+routes(app);
 
-// httpsServer.listen(3005);
+httpsServer.listen(3005);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
