@@ -6,7 +6,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 nvm install 16.14.2 64
 
 #create our working directory if it doesnt exist
-DIR="/home/ec2-user/cinem-server"
+DIR="/home/ec2-user/cinema-server"
 if [ -d "$DIR" ]; then
   echo "${DIR} exists"
 else
