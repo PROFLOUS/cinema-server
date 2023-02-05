@@ -11,6 +11,10 @@ require("./src/config/redis");
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
+const file = fs.readFileSync(
+  path.resolve("1C51E7CEA5638CAE1AB83102DD479B75.txt")
+);
+
 // const key = fs.readFileSync(path.resolve("ssl/private.key"));
 // const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
 // const options = {
@@ -33,7 +37,13 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 // routes
-routes(app);
+// routes(app);
+app.get(
+  "/.well-known/pki-validation/1C51E7CEA5638CAE1AB83102DD479B75.txt",
+  (req, res) => {
+    res.sendFile('1C51E7CEA5638CAE1AB83102DD479B75.txt', { root: __dirname });
+  }
+);
 
 // httpsServer.listen(3005);
 
