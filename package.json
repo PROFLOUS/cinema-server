@@ -32,6 +32,7 @@
     "nexmo": "^2.9.1",
     "nodemon": "^2.0.20",
     "redis": "^3.1.2",
+    "redis-clustr": "^1.7.0",
     "sequelize": "^6.28.0",
     "sequelize-auto": "^0.8.8",
     "twilio": "^3.84.0",

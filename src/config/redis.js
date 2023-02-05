@@ -1,11 +1,6 @@
 const util = require("util");
 const redis = require("redis");
-// 6379
-// const client = redis.createClient({
-//   host: process.env.REDIS_HOST,
-//   port: process.env.REDIS_PORT,
-//   password: process.env.REDIS_PASSWORD,
-// });
+
 console.log(process.env.REDIS_HOST);
 console.log(process.env.REDIS_PORT);
 
@@ -14,16 +9,6 @@ const client = redis.createClient({
     port: process.env.REDIS_PORT,
   });
 
-// const client = redis.createClient({
-//     url:'redis://redis:6379'
-// });
-// const client = redis.createClient({
-//   socket: {
-//     host: process.env.REDIS_HOST,
-//     port: process.env.REDIS_PORT,
-//   },
-//   password: process.env.REDIS_PASSWORD,
-// });
 client.on("connect", function () {
   console.log("Redis Connected!");
 });
@@ -57,3 +42,4 @@ module.exports = {
   get,
   exists,
 };
+
