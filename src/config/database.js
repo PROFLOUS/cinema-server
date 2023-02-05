@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 require("dotenv").config();
 const sequelize = new Sequelize(
   process.env.DATABASE,
-  'admin',
+  "admin",
   process.env.PASSWORD,
   {
     host: process.env.HOST_MYSQL_URI,
