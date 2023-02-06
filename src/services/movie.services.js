@@ -1,5 +1,6 @@
 const MovieRepository = require("../repository/movie.repository");
 const redisDb = require("../config/redis");
+const s3Service = require("./awsS3.services");
 
 class MovieService {
   async getAllMovie() {
@@ -22,7 +23,13 @@ class MovieService {
     return await MovieRepository.getMovieByName(name);
   }
 
-  async createMovie(movie) {
+  async createMovie(req) {
+    const movie = req.body;
+    const image = req.file;
+    console.log(image);
+    const result = await s3Service.uploadFile(image);
+    console.log(result);
+    movie.image = result
     return await MovieRepository.createMovie(movie);
   }
 

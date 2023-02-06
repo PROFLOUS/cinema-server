@@ -43,7 +43,8 @@ class MovieController {
   //[POST] /movie
   async createMovie(req, res) {
     try {
-      const rs = await MovieService.createMovie(req.body);
+      console.log(req);
+      const rs = await MovieService.createMovie(req);
       res.status(201).json(rs);
     } catch (err) {
       res.status(500).json({
