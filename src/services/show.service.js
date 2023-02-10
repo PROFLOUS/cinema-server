@@ -12,18 +12,24 @@ class ShowService {
   async getShowByMovieId(req) {
     const data = await ShowRepository.getShowByMovieId(req);
     
-    const d = new Date();
-    const localTime = d.getTime();
-    const localOffset = d.getTimezoneOffset() * 60000;
+    
 
-    const utc = localTime + localOffset;
-    const offset = 7; 
-    const vn = utc + 3600000 * offset;
+    var date = new Date();
 
-    const currentDate = new Date(vn).toLocaleTimeString();
+// convert to milliseconds, add local time zone offset and get UTC time in milliseconds
+var utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
+
+// time offset for New Zealand is +12
+var timeOffset = 7;
+
+// create new Date object for a different timezone using supplied its GMT offset.
+var currentDate = new Date(utcTime + (3600000 * timeOffset));
+
+    // const currentDate = new Date(vn).toLocaleTimeString();
 
     const datee = await this.convertTime12to24(currentDate);
     console.log("datee", datee);
+
     
     data.forEach((item) => {
       let showTimes = [];
