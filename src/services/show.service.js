@@ -1,4 +1,13 @@
+var axios = require('axios');
 const ShowRepository = require("../repository/show.repository");
+
+var config = {
+  method: 'get',
+  url: 'https://worldtimeapi.org/api/timezone/Asia/Bangkok',
+  headers: { }
+};
+
+
 
 class ShowService {
   async getAllShow() {
@@ -11,28 +20,19 @@ class ShowService {
 
   async getShowByMovieId(req) {
     const data = await ShowRepository.getShowByMovieId(req);
-    
-    
 
-    var date = new Date();
+  
+    const getDate = await axios(config)
 
-// convert to milliseconds, add local time zone offset and get UTC time in milliseconds
-var utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
-
-// time offset for New Zealand is +12
-var timeOffset = 7;
-
-// create new Date object for a different timezone using supplied its GMT offset.
-var currentDate = new Date(utcTime + (3600000 * timeOffset));
-
-    // const currentDate = new Date(vn).toLocaleTimeString();
+    const currentDate = new Date(getDate.data.datetime).toLocaleTimeString();
 
     const datee = await this.convertTime12to24(currentDate);
     console.log("datee", datee);
 
-    
+    let showTimesIsNull = [];
     data.forEach((item) => {
       let showTimes = [];
+      
       console.log("showtime",item.id,item.showTime);
 
       item.showTime.forEach((time) => {
@@ -45,22 +45,35 @@ var currentDate = new Date(utcTime + (3600000 * timeOffset));
       });
       console.log("showtimes",showTimes);
       item.showTime = showTimes;
-
-      const i = data.indexOf(item);
+      
       if(item.showTime.length === 0) {
-        data.splice(i, 1);
+        showTimesIsNull.push(item);
       }
       
     });
+
+    console.log("showTimesIsNull",showTimesIsNull);
+
+    data.forEach((item) => {
+      showTimesIsNull.forEach((item2) => {
+        if(item.id === item2.id) {
+          const i = data.indexOf(item);
+          data.splice(i, 1);
+        }
+      })
+    })
+
 
     return data;
   }
 
   async getShowByCinemaId(req) {
     const data = await ShowRepository.getShowByCinemaId(req);
-    let currentDate = new Date().toLocaleTimeString();
+    const getDate = await axios(config)
+    const currentDate = new Date(getDate.data.datetime).toLocaleTimeString();
     const datee = await this.convertTime12to24(currentDate);
     console.log("datee", datee);
+    let showTimesIsNull = [];
     
     data.forEach((item) => {
       let showTimes = [];
@@ -81,9 +94,20 @@ var currentDate = new Date(utcTime + (3600000 * timeOffset));
       console.log("i",i);
 
       if(item.showTime.length === 0) {
-        data.splice(i, 1);
+        showTimesIsNull.push(item);
       }
       
+    })
+
+    console.log("showTimesIsNull",showTimesIsNull);
+
+    data.forEach((item) => {
+      showTimesIsNull.forEach((item2) => {
+        if(item.id === item2.id) {
+          const i = data.indexOf(item);
+          data.splice(i, 1);
+        }
+      })
     })
 
     
