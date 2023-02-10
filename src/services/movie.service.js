@@ -1,6 +1,7 @@
 const MovieRepository = require("../repository/movie.repository");
 const redisDb = require("../config/redis");
-const s3Service = require("./awsS3.services");
+const s3Service = require("./awsS3.service");
+const MovieCinemaService = require("./cinemaMovie.service");
 
 class MovieService {
   async getAllMovie() {
@@ -23,6 +24,18 @@ class MovieService {
     return await MovieRepository.getMovieByName(name);
   }
 
+  async getMovieByCinemaId(id) {
+    const movies = await redisDb.get("moviesByCinemaId");
+    if (movies) {
+      console.log("Get data from redis");
+      return JSON.parse(movies);
+    }
+    const data = await MovieRepository.getMovieByCinemaId(id);
+    console.log("Get data from database");
+    await redisDb.set("moviesByCinemaId", JSON.stringify(data), 60);
+    return data;
+  }
+
   async createMovie(req) {
     const movie = req.body;
     const image = req.file;
@@ -30,7 +43,15 @@ class MovieService {
     const result = await s3Service.uploadFile(image);
     console.log(result);
     movie.image = result
-    return await MovieRepository.createMovie(movie);
+    const newMovie = await MovieRepository.createMovie(movie);
+    const { id } = newMovie;
+    const idCinema = movie.idCinema;
+    await MovieCinemaService.createCinemaMovie({ idCinema, idMovie: id });
+    const isExist = await redisDb.exists("cinemaMoviesByCinemaId"+id);
+    if(isExist){
+      await redisDb.del("cinemaMoviesByCinemaId"+id);
+    }
+    return newMovie;
   }
 
   async updateMovie(id, movie) {

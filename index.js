@@ -11,7 +11,6 @@ require("./src/config/redis");
 // const FoodType = require('../_models/FoodType');
 // const Food = require('../_models/Food');
 
-
 const key = fs.readFileSync(path.resolve("ssl/private.key"));
 const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
 const options = {
@@ -25,6 +24,10 @@ const port = process.env.PORT;
 
 // connect to database
 const db = require("./src/config/database");
+
+
+
+
 
 // db.sync({ alter: true });
 db.sync();

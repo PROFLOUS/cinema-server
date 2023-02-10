@@ -13,12 +13,12 @@ const Show = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    startTime: {
+    showDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    endTime: {
-      type: DataTypes.DATE,
+    showTime: {
+      type: DataTypes.JSON,
       allowNull: false,
     },
     idCinemaHall: {

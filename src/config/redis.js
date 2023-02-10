@@ -20,6 +20,7 @@ client.on("error", function (error) {
 const setClient = util.promisify(client.set).bind(client);
 const getClient = util.promisify(client.get).bind(client);
 const existsClient = util.promisify(client.exists).bind(client);
+const deleteKeyClient = util.promisify(client.del).bind(client);
 
 const set = async (key, value, ttl) => {
   await setClient(key, JSON.stringify(value), "EX", ttl);
@@ -29,6 +30,10 @@ const get = async (key) => {
   const data = await getClient(key);
 
   return JSON.parse(data);
+};
+
+const deleteKey = async (key) => {
+  await deleteKeyClient(key);
 };
 
 const exists = async (key) => {
@@ -41,5 +46,6 @@ module.exports = {
   set,
   get,
   exists,
+  deleteKey,
 };
 

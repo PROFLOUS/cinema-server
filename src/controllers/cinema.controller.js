@@ -1,4 +1,4 @@
-const CinemaService = require('../services/cinema.services');
+const CinemaService = require('../services/cinema.service');
 
 class CinemaController {
 

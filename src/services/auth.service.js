@@ -236,6 +236,8 @@ class CustomerService {
                     data: {
                         id: existingStaff.id,
                         phone: existingStaff.phone,
+                        firstName: existingStaff.firstName,
+                        lastName: existingStaff.lastName,
                         nameRole,
                         accessToken:accessToken,
                         refreshToken:refreshToken
@@ -275,6 +277,8 @@ class CustomerService {
                     id: existingCustomer.id,
                     email: existingCustomer.email,
                     phone: existingCustomer.phone,
+                    firstName: existingCustomer.firstName,
+                    lastName: existingCustomer.lastName,
                     accessToken,
                     refreshToken
                 }
@@ -292,7 +296,7 @@ class CustomerService {
     async RefreshToken(body) {
         const { refreshToken } = body;
         const {email,id} = await ValidateSignatureRefresh(refreshToken,refreshTokenSecret);
-        const checkRefreshToken = await Redis.getAsync(id);
+        const checkRefreshToken = await Redis.get(id);
         if(!checkRefreshToken) {
             return {
                 status: 400,
@@ -312,7 +316,7 @@ class CustomerService {
 
         const newAccessToken = await GenerateSignature(playload,accessTokenSecret,accessTokenLife);
         const newRefreshToken = await GenerateSignature(playload,refreshTokenSecret,refreshTokenLife);
-        Redis.setAsync(id,newRefreshToken,'EX',365*24*60*60)
+        Redis.set(id,newRefreshToken,'EX',365*24*60*60)
         return {
             status: 200,
             message: 'Refresh token success',

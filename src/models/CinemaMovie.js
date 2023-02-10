@@ -20,14 +20,6 @@ const CinemaMovie = db.define(
       type: DataTypes.BIGINT,
       allowNull: false,
     },
-    title: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    desc: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
   },
   {
     freezeTableName: true,

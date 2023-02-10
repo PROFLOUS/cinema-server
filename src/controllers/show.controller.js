@@ -1,11 +1,10 @@
-const MovieService = require("../services/movie.service");
-const CinemaMovieService = require("../services/cinemaMovie.service");
+const ShowService = require("../services/show.service");
 
-class MovieController {
-  //[GET] /movie
-  async getAllMovie(req, res) {
+class ShowController {
+  //[GET] /show
+  async getAllShow(req, res) {
     try {
-      const rs = await MovieService.getAllMovie();
+      const rs = await ShowService.getAllShow();
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -15,10 +14,10 @@ class MovieController {
     }
   }
 
-  //[GET] /movie/:id
-  async getMovieById(req, res) {
+  //[GET] /show/:id
+  async getShowById(req, res) {
     try {
-      const rs = await MovieService.getMovieById(req.params.id);
+      const rs = await ShowService.getShowById(req.params.id);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -28,10 +27,10 @@ class MovieController {
     }
   }
 
-  //[GET] /movie/name/:name
-  async getMovieByName(req, res) {
+  //[GET] /show/movie/:movieId
+  async getShowByMovieId(req, res) {
     try {
-      const rs = await MovieService.getMovieByName(req.params.name);
+      const rs = await ShowService.getShowByMovieId(req);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -41,24 +40,10 @@ class MovieController {
     }
   }
 
-  //[POST] /movie
-  async createMovie(req, res) {
+  //[GET] /show/cinema/:cinemaId
+  async getShowByCinemaId(req, res) {
     try {
-      console.log(req);
-      const rs = await MovieService.createMovie(req);
-      res.status(201).json(rs);
-    } catch (err) {
-      res.status(500).json({
-        status: 500,
-        message: err.message,
-      });
-    }
-  }
-
-  //[PUT] /movie/:id
-  async updateMovie(req, res) {
-    try {
-      const rs = await MovieService.updateMovie(req.params.id, req.body);
+      const rs = await ShowService.getShowByCinemaId(req);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -68,10 +53,10 @@ class MovieController {
     }
   }
 
-  //[DELETE] /movie/:id
-  async deleteMovie(req, res) {
+  //[POST] /show
+  async createShow(req, res) {
     try {
-      const rs = await MovieService.deleteMovie(req.params.id);
+      const rs = await ShowService.createShow(req.body);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -81,10 +66,23 @@ class MovieController {
     }
   }
 
-  //[GET] /movie/cinema/:id
-  async getMovieByCinemaId(req, res) {
+  //[PUT] /show/:id
+  async updateShow(req, res) {
     try {
-      const rs = await CinemaMovieService.getCinemaMovieByCinemaId(req.params.id);
+      const rs = await ShowService.updateShow(req.params.id, req.body);
+      res.status(200).json(rs);
+    } catch (err) {
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
+    }
+  }
+
+  //[DELETE] /show/:id
+  async deleteShow(req, res) {
+    try {
+      const rs = await ShowService.deleteShow(req.params.id);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({
@@ -95,4 +93,4 @@ class MovieController {
   }
 }
 
-module.exports = new MovieController();
+module.exports = new ShowController();

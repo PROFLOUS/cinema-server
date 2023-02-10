@@ -1,4 +1,4 @@
-const CategoryMovieService = require("../services/categoryMovie.services");
+const CategoryMovieService = require("../services/categoryMovie.service");
 
 class CategoryMovieController {
   //[GET] /categoryMovie
