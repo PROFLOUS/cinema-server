@@ -25,31 +25,6 @@ const port = process.env.PORT;
 // connect to database
 const db = require("./src/config/database");
 
-const d = new Date();
-const localTime = d.getTime();
-const localOffset = d.getTimezoneOffset() * 60000;
-
-const utc = localTime + localOffset;
-const offset = 7; // UTC of Dubai is +04.00
-const vn = utc + 3600000 * offset;
-
-const currentDate = Date(vn);
-
-var myDate = new Date(currentDate);
-
-console.log("myDate", myDate);
-
-var minutes = myDate.getMinutes();
-var hours = myDate.getHours();
-
-const da = `${hours}:${minutes}`
-console.log("da", da);
-
-
-
-
-
-
 // db.sync({ alter: true });
 db.sync();
 

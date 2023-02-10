@@ -1,13 +1,6 @@
 var axios = require('axios');
 const ShowRepository = require("../repository/show.repository");
 
-var config = {
-  method: 'get',
-  url: 'https://worldtimeapi.org/api/timezone/Asia/Bangkok',
-  headers: { }
-};
-
-
 
 class ShowService {
   async getAllShow() {
@@ -21,29 +14,19 @@ class ShowService {
   async getShowByMovieId(req) {
     const data = await ShowRepository.getShowByMovieId(req);
 
-  
-    const getDate = await axios(config)
-
-    const currentDate = new Date(getDate.data.datetime).toLocaleTimeString();
-
-    const datee = await this.convertTime12to24(currentDate);
-    console.log("datee", datee);
+    const currentDate = new Date().toLocaleTimeString();
+    const currentTime =  this.convertTime12to24(currentDate);
 
     let showTimesIsNull = [];
     data.forEach((item) => {
       let showTimes = [];
-      
-      console.log("showtime",item.id,item.showTime);
 
       item.showTime.forEach((time) => {
-        console.log("time", time);
-        console.log("currentDate", datee);
-        if (time > datee) {
-          console.log("timess",time);
+
+        if (time > currentTime) {
           showTimes.push(time);
         }
       });
-      console.log("showtimes",showTimes);
       item.showTime = showTimes;
       
       if(item.showTime.length === 0) {
@@ -51,8 +34,6 @@ class ShowService {
       }
       
     });
-
-    console.log("showTimesIsNull",showTimesIsNull);
 
     data.forEach((item) => {
       showTimesIsNull.forEach((item2) => {
@@ -69,32 +50,21 @@ class ShowService {
 
   async getShowByCinemaId(req) {
     const data = await ShowRepository.getShowByCinemaId(req);
-    const getDate = await axios(config)
-    const currentDate = getDate.data.datetime;
-    console.log("da", currentDate);
-    const datee = await this.convertTime12to24(currentDate);
-    console.log("datee", datee);
 
+    const currentDate = new Date().toLocaleTimeString();
+    const currentTime = this.convertTime12to24(currentDate);
 
     let showTimesIsNull = [];
     
     data.forEach((item) => {
       let showTimes = [];
-      console.log("showtime",item.id,item.showTime);
 
       item.showTime.forEach((time) => {
-        console.log("time", time);
-        console.log("currentDate", datee);
-        if (time > datee) {
-          console.log("timess",time);
+        if (time > currentTime) {
           showTimes.push(time);
         }
       });
-      console.log("showtimes",showTimes);
       item.showTime = showTimes;
-
-      const i = data.indexOf(item);
-      console.log("i",i);
 
       if(item.showTime.length === 0) {
         showTimesIsNull.push(item);
@@ -130,7 +100,7 @@ class ShowService {
     return { message: "Delete success" };
   }
 
-  async convertTime12to24 (time12h) {
+  convertTime12to24 (time12h) {
     const [time, modifier] = time12h.split(' ');
   
     let [hours, minutes] = time.split(':');
