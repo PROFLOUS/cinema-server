@@ -70,9 +70,12 @@ class ShowService {
   async getShowByCinemaId(req) {
     const data = await ShowRepository.getShowByCinemaId(req);
     const getDate = await axios(config)
-    const currentDate = new Date(getDate.data.datetime).toLocaleTimeString();
+    const currentDate = getDate.data.datetime;
+    console.log("da", currentDate);
     const datee = await this.convertTime12to24(currentDate);
     console.log("datee", datee);
+
+
     let showTimesIsNull = [];
     
     data.forEach((item) => {
@@ -98,8 +101,6 @@ class ShowService {
       }
       
     })
-
-    console.log("showTimesIsNull",showTimesIsNull);
 
     data.forEach((item) => {
       showTimesIsNull.forEach((item2) => {
