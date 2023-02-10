@@ -25,16 +25,19 @@ const port = process.env.PORT;
 // connect to database
 const db = require("./src/config/database");
 
+const d = new Date();
+const localTime = d.getTime();
+const localOffset = d.getTimezoneOffset() * 60000;
 
-if('14:00'>'20:32')
-{
-  console.log("true");
-}
-else
-{
-  console.log("false");
-}
+const utc = localTime + localOffset;
+const offset = 7; 
+const vn = utc + 3600000 * offset;
 
+const currentDate = new Date(vn).toLocaleTimeString();
+console.log(currentDate);
+
+const datatest = new Date().toLocaleTimeString();
+console.log(datatest);
 
 
 // db.sync({ alter: true });

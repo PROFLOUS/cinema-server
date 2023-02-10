@@ -12,7 +12,16 @@ class ShowService {
   async getShowByMovieId(req) {
     const data = await ShowRepository.getShowByMovieId(req);
     
-    let currentDate = new Date().toLocaleTimeString();
+    const d = new Date();
+    const localTime = d.getTime();
+    const localOffset = d.getTimezoneOffset() * 60000;
+
+    const utc = localTime + localOffset;
+    const offset = 7; 
+    const vn = utc + 3600000 * offset;
+
+    const currentDate = new Date(vn).toLocaleTimeString();
+
     const datee = await this.convertTime12to24(currentDate);
     console.log("datee", datee);
     
