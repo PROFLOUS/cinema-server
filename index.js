@@ -26,6 +26,14 @@ const port = process.env.PORT;
 const db = require("./src/config/database");
 
 
+if('14:00'>'20:32')
+{
+  console.log("true");
+}
+else
+{
+  console.log("false");
+}
 
 
 

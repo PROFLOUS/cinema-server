@@ -14,17 +14,24 @@ class ShowService {
     
     let currentDate = new Date().toLocaleTimeString();
     const datee = await this.convertTime12to24(currentDate);
+    console.log("datee", datee);
     
     data.forEach((item) => {
       let showTimes = [];
+      console.log("showtime",item.id,item.showTime);
 
       item.showTime.forEach((time) => {
+        console.log("time", time);
+        console.log("currentDate", datee);
         if (time > datee) {
+          console.log("timess",time);
           showTimes.push(time);
         }
       });
+      console.log("showtimes",showTimes);
       item.showTime = showTimes;
 
+      const i = data.indexOf(item);
       if(item.showTime.length === 0) {
         data.splice(i, 1);
       }
@@ -38,24 +45,33 @@ class ShowService {
     const data = await ShowRepository.getShowByCinemaId(req);
     let currentDate = new Date().toLocaleTimeString();
     const datee = await this.convertTime12to24(currentDate);
+    console.log("datee", datee);
     
     data.forEach((item) => {
       let showTimes = [];
+      console.log("showtime",item.id,item.showTime);
 
       item.showTime.forEach((time) => {
+        console.log("time", time);
+        console.log("currentDate", datee);
         if (time > datee) {
+          console.log("timess",time);
           showTimes.push(time);
         }
       });
+      console.log("showtimes",showTimes);
       item.showTime = showTimes;
 
       const i = data.indexOf(item);
+      console.log("i",i);
 
       if(item.showTime.length === 0) {
         data.splice(i, 1);
       }
       
     })
+
+    
 
     return data;
   }
