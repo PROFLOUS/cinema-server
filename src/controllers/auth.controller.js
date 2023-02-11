@@ -55,6 +55,32 @@ class AuthController {
             })
         }
     }
+
+
+    async GetCustomerInfo(req, res) {
+        console.log(req.query.accessToken);
+        try{
+            const rs = await authServices.GetCustomerByAccessToken(req.query.accessToken);
+            res.status(rs.status).json(rs);
+        }catch(err){
+            res.status(500).json({
+                status: 500,
+                message: err.message
+            })
+        }
+    }
+
+    async GetStaffInfo(req, res) {
+        try{
+            const rs = await authServices.GetStaffByAccessToken(req.query.accessToken);
+            res.status(rs.status).json(rs);
+        }catch(err){
+            res.status(500).json({
+                status: 500,
+                message: err.message
+            })
+        }
+    }
         
 
 }
