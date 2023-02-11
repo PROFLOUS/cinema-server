@@ -39,16 +39,22 @@ module.exports.ValidatePassword = async (
     return false;
   });
 
-module.exports.ValidateSignatureWithAccess = async (accessToken) => {
-  try {
-    const payload = await jwt.verify(
-      accessToken,
-      process.env.ACCESS_TOKEN_SECRET
-    );
-    console.log(payload);
-  } catch (error) {
-    throw new Error("Invalid Token");
-  }
+module.exports.ValidateSignatureWithAccess = async (req) => {
+  let signature = req.get("Authorization");
+    if (signature) {
+      signature = signature.split(" ")[1];
+      try {
+        const payload = await jwt.verify(
+          signature,
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        return payload;
+      } catch (error) {
+        throw new Error("Invalid Token!");
+      }
+    }
+
+    throw new Error("Invalid Token!");
 };
 
 module.exports.ValidateSignatureRefresh = async (refreshToken) => {

@@ -371,10 +371,9 @@ class CustomerService {
     };
   }
 
-  async GetCustomerByAccessToken(accessToken) {
+  async GetCustomerByAccessToken(req) {
     const { email, id } = await ValidateSignatureWithAccess(
-      accessToken,
-      accessTokenSecret
+      req
     );
     const existingCustomer = await CustomerRepository.GetById(id);
     delete existingCustomer.dataValues.password;
@@ -394,10 +393,9 @@ class CustomerService {
     };
   }
 
-  async GetStaffByAccessToken(accessToken) {
+  async GetStaffByAccessToken(req) {
     const { email, id } = await ValidateSignatureWithAccess(
-      accessToken,
-      accessTokenSecret
+      req
     );
     const existingStaff = await StaffRepository.GetById(id);
     let { nameRole } = await RoleRepository.GetNameRoleByStaffId(

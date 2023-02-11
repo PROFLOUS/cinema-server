@@ -58,9 +58,8 @@ class AuthController {
 
 
     async GetCustomerInfo(req, res) {
-        console.log(req.query.accessToken);
         try{
-            const rs = await authServices.GetCustomerByAccessToken(req.query.accessToken);
+            const rs = await authServices.GetCustomerByAccessToken(req);
             res.status(rs.status).json(rs);
         }catch(err){
             res.status(500).json({
@@ -72,7 +71,7 @@ class AuthController {
 
     async GetStaffInfo(req, res) {
         try{
-            const rs = await authServices.GetStaffByAccessToken(req.query.accessToken);
+            const rs = await authServices.GetStaffByAccessToken(req);
             res.status(rs.status).json(rs);
         }catch(err){
             res.status(500).json({
