@@ -213,6 +213,8 @@ class CustomerService {
             // const existingStaff = await StaffRepository.GetByEmail(email);
             const existingStaff = await StaffRepository.GetByPhone(phone);
             let {nameRole} = await RoleRepository.GetNameRoleByStaffId(existingStaff.id);
+            
+            existingStaff.dataValues["nameRole"] = nameRole;
             if (!existingStaff) {
                 return {
                     status: 400,
@@ -234,11 +236,7 @@ class CustomerService {
                     status: 200,
                     message: 'Login success',
                     data: {
-                        id: existingStaff.id,
-                        phone: existingStaff.phone,
-                        firstName: existingStaff.firstName,
-                        lastName: existingStaff.lastName,
-                        nameRole,
+                        staff: existingStaff,
                         accessToken:accessToken,
                         refreshToken:refreshToken
                     }
@@ -274,11 +272,7 @@ class CustomerService {
                 status: 200,
                 message: 'Login success',
                 data: {
-                    id: existingCustomer.id,
-                    email: existingCustomer.email,
-                    phone: existingCustomer.phone,
-                    firstName: existingCustomer.firstName,
-                    lastName: existingCustomer.lastName,
+                    customer: existingCustomer,
                     accessToken,
                     refreshToken
                 }
