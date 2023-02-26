@@ -1,4 +1,4 @@
-const MemberShip = require("../models/MemberShip");
+const MemberShip = require("../../src/models/MemberShip");
 const Customer = require("../models/Customer");
 const Rank = require("../models/Rank");
 class MemberShipRepository {
