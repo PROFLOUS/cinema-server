@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
+const Rank = require("./Rank");
 
 const Customer = db.define(
   "Customer",
@@ -67,7 +68,15 @@ const Customer = db.define(
       allowNull: true,
     },
     dob: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
+    rank_id: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING(100),
       allowNull: true,
     },
   },
@@ -76,5 +85,8 @@ const Customer = db.define(
     freezeTableName: true,
   }
 );
+
+Customer.belongsTo(Rank,{foreignKey: "rank_id"});
+Rank.hasMany(Customer,{foreignKey: "rank_id"});
 
 module.exports = Customer;

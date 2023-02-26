@@ -4,7 +4,8 @@ const MemberShipRepository = require('../repositories/menberShip.repository');
 class CustomerService {
 
     async getAllCustomer() {
-        return await CustomerRepository.GetAllCustomers();
+        const data = await CustomerRepository.GetAllCustomers();
+        return data;
     }
 
     async getCustomerById(id) {
@@ -38,6 +39,12 @@ class CustomerService {
     async getInfoMemberShip(id) {
         const data = await MemberShipRepository.GetInfoCustomer(id);
         
+        return data;
+    }
+
+    async getCustomers(){
+        const data = await MemberShipRepository.GetCustomers();
+        console.log("data", data);
         return data;
     }
 

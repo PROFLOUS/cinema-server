@@ -83,6 +83,20 @@ class MemberShipRepository {
     });
     return data;
   }
+
+  async GetCustomers() {
+    const data = await MemberShip.findAll({
+      include: [
+        {
+          model: Customer,
+        },
+        {
+          model: Rank,
+        },
+      ],
+    });
+    return data;
+  }
 }
 
 module.exports = new MemberShipRepository();

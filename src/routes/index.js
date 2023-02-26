@@ -15,6 +15,7 @@ const memberShipRouter = require("./menberShip.route");
 const customerRouter = require("./customer.route");
 const priceHeaderRouter = require("./priceHeader.route");
 const priceLineRouter = require("./priceLine.route");
+const staffRouter = require("./staff.route");
 
 const route = (app) => {
   app.use("/auth", authRouter);
@@ -34,6 +35,7 @@ const route = (app) => {
   app.use("/customer", customerRouter);
   app.use("/priceHeader", priceHeaderRouter);
   app.use("/priceLine", priceLineRouter);
+  app.use("/staff", staffRouter);
 
   app.use("/test", (req, res) => {
     res.send("Hello World !!!!");

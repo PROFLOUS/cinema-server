@@ -38,11 +38,11 @@ const Staff = db.define(
     },
     gender: {
       type: DataTypes.STRING(1),
-      allowNull: false,
+      allowNull: true,
     },
     dob: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     start_date: {
       type: DataTypes.DATE,
@@ -81,6 +81,10 @@ const Staff = db.define(
       allowNull: false,
     },
     street: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    image: {
       type: DataTypes.STRING(100),
       allowNull: true,
     },

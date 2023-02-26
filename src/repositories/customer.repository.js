@@ -1,4 +1,5 @@
 const Customer = require("../models/Customer");
+const Rank = require("../models/Rank");
 
 
 
@@ -48,7 +49,15 @@ class CustomerRepository {
   }
 
   async GetAllCustomers() {
-    return await Customer.findAll();
+    return await Customer.findAll({
+      include: [
+        {
+          model: Rank,
+          attributes: ["id","nameRank"],
+        }
+      ],
+      attributes: ["id","email","phone","firstName","lastName","gender","dob","image","createdAt","updatedAt"],
+    });
   }
 
   async GetCustomerByPage(page, limit) {
