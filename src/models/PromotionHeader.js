@@ -10,12 +10,16 @@ const PromotionHeader = db.define(
       allowNull: false,
       primaryKey: true,
     },
+    title: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
     namePromotion: {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
     desc: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.TEXT("long"),
       allowNull: false,
     },
     startDate: {
@@ -25,6 +29,10 @@ const PromotionHeader = db.define(
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
     },
     statusPromotion: {
       type: DataTypes.BOOLEAN,

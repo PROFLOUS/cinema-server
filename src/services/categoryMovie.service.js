@@ -1,4 +1,4 @@
-const CinameRepository = require("../repository/categoryMovie.repository");
+const CinameRepository = require("../repositories/categoryMovie.repository");
 
 class CategoryMovieService {
   async getAllCategoryMovie() {

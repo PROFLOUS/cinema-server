@@ -1,4 +1,4 @@
-const CinemaHallRepository = require('../repository/cinemaHalls.repository');
+const CinemaHallRepository = require('../repositories/cinemaHalls.repository');
 
 class CinemaHallService {
 

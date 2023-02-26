@@ -1,4 +1,4 @@
-const MovieRepository = require("../repository/movie.repository");
+const MovieRepository = require("../repositories/movie.repository");
 const redisDb = require("../config/redis");
 const s3Service = require("./awsS3.service");
 const MovieCinemaService = require("./cinemaMovie.service");

@@ -13,17 +13,18 @@ const MemberShip = db.define(
             allowNull: false,
             primaryKey: true,
         },
-        pointHightest: {
-            type: DataTypes.INTEGER,
+        menberShipCode: {
+            type: DataTypes.STRING(10),
             allowNull: false,
         },
         currentPoint: {
             type: DataTypes.INTEGER,
+            defaultValue: 0, 
             allowNull: false,
         },
         desc: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,
         },
         idCustomer: {
             type: DataTypes.BIGINT,
@@ -31,6 +32,15 @@ const MemberShip = db.define(
         },
         idRank: {
             type: DataTypes.BIGINT,
+            allowNull: false,
+        },
+        startDate: {
+            type: DataTypes.DATEONLY,
+            allowNull: false,
+        },
+        total_spending_month: {
+            type: DataTypes.DOUBLE,
+            defaultValue: 0,
             allowNull: false,
         },
     },

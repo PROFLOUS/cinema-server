@@ -1,4 +1,4 @@
-const RoleRepository = require('../repository/role.repository');
+const RoleRepository = require('../repositories/role.repository');
 
 isAdmin = async (req, res, next) => {
     const role = await RoleRepository.GetNameRoleByStaffId(req.user.id);

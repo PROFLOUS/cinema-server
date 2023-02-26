@@ -19,20 +19,20 @@ const PriceHeader = db.define(
       allowNull: false,
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    statusPrice: {
+    status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
+    }, 
     note: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {

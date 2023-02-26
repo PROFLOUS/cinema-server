@@ -1,5 +1,5 @@
 var axios = require('axios');
-const ShowRepository = require("../repository/show.repository");
+const ShowRepository = require("../repositories/show.repository");
 
 
 class ShowService {

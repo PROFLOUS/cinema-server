@@ -19,12 +19,12 @@ const CinemaHallSeat = db.define(
       type: DataTypes.STRING(2),
       allowNull: false,
     },
-    typeSeat: {
-      type: DataTypes.ENUM("PRIMEUM", "SINGLE", "COUPLE"),
-      allowNull: false,
-    },
     statusSeat: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idProduct: {
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     idCinemaHall: {

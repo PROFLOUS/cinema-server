@@ -11,52 +11,32 @@ const PromotionDetail = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    moneyDiscount: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    numberOfTicketBought: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    promotionCode: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    idProductBuy: {
+    IdProduct_buy: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    idProductReceive: {
+    IdProduct_receive: {
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    numberOfProductReceive: {
+    qty_buy: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    budget: {
+    qty_receive: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    total_purchase_amount: {
       type: DataTypes.DOUBLE,
       allowNull: true,
     },
-    maxQtyPerCustomer: {
-      type: DataTypes.INTEGER,
+    money_received: {
+      type: DataTypes.DOUBLE,
       allowNull: true,
     },
-    qty: {
+    percent_reduction: {
       type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    pointChange: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    qtyUsed: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    rankWillBeUsed: {
-      type: DataTypes.STRING(20),
       allowNull: true,
     },
     idPromotionLine: {

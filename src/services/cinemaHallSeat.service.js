@@ -1,4 +1,4 @@
-const CinemaHallSeatRepository = require("../repository/cinemaHallSeat.repository");
+const CinemaHallSeatRepository = require("../repositories/cinemaHallSeat.repository");
 const redisDb = require("../config/redis");
 class CinemaHallSeatService {
 

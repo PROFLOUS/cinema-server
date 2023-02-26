@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 
-const Product = db.define(
-  "Product",
+const ProductCombo = db.define(
+  "ProductCombo",
   {
     id: {
       autoIncrement: true,
@@ -10,25 +10,25 @@ const Product = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    type: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
-    productCode: {
+    productComboCode: {
       type: DataTypes.STRING(10),
       allowNull: false,
     },
-    productName: {
+    productComboName: {
       type: DataTypes.STRING(50),
       allowNull: false,
+    },
+    desc: {
+      type: DataTypes.TEXT("long"),
+      allowNull: true,
     },
     image: {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    typeHall: {
-      type: DataTypes.STRING(5),
-      allowNull: true,
+    productCode: {
+      type: DataTypes.JSON,
+      allowNull: false,
     },
   },
   {
@@ -37,4 +37,4 @@ const Product = db.define(
   }
 );
 
-module.exports = Product;
+module.exports = ProductCombo;

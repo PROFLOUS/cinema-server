@@ -1,6 +1,7 @@
-const CustomerRepository = require("../repository/customer.repository");
-const StaffRepository = require("../repository/staff.repository");
-const RoleRepository = require("../repository/role.repository");
+const CustomerRepository = require("../repositories/customer.repository");
+const StaffRepository = require("../repositories/staff.repository");
+const RoleRepository = require("../repositories/role.repository");
+const MemberShipService = require("../services/menberShip.service");
 const {
   GeneratePassword,
   GenerateSalt,
@@ -139,6 +140,13 @@ class CustomerService {
       _id = existingCustomer.id;
       try {
         await this.sendOTP(id, myPhone);
+
+        const createMemberShip = {
+          idCustomer: id,
+          idRank:1,
+        }
+        const mb = await MemberShipService.createMemberShip(createMemberShip)
+        console.log("mb",mb);
       } catch (err) {
         console.log(err);
       }
@@ -214,10 +222,16 @@ class CustomerService {
       .then((verification) => console.log(verification.status))
       .catch((err) => console.log(err));
 
+    
+
     await CustomerRepository.UpdateCustomer(id, { isActivated: true });
+    await Redis.del("otp_" + phone);
+
+    
 
     return {
       status: 200,
+      mb,
       message: "Account is activated",
     };
   }
@@ -372,9 +386,7 @@ class CustomerService {
   }
 
   async GetCustomerByAccessToken(req) {
-    const { email, id } = await ValidateSignatureWithAccess(
-      req
-    );
+    const { email, id } = await ValidateSignatureWithAccess(req);
     const existingCustomer = await CustomerRepository.GetById(id);
     delete existingCustomer.dataValues.password;
 
@@ -394,9 +406,7 @@ class CustomerService {
   }
 
   async GetStaffByAccessToken(req) {
-    const { email, id } = await ValidateSignatureWithAccess(
-      req
-    );
+    const { email, id } = await ValidateSignatureWithAccess(req);
     const existingStaff = await StaffRepository.GetById(id);
     let { nameRole } = await RoleRepository.GetNameRoleByStaffId(
       existingStaff.id

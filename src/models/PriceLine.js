@@ -12,18 +12,6 @@ const PriceLine = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    productCode: {
-      type: DataTypes.STRING(10),
-      allowNull: false,
-    },
-    name: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
-    },
-    type: {
-      type: DataTypes.STRING(50),
-      allowNull: false,
-    },
     price: {
       type: DataTypes.DOUBLE,
       allowNull: false,

@@ -22,6 +22,10 @@ const Rank = db.define(
             type: DataTypes.STRING(50),
             allowNull: false,
         },
+        image: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
     },
     {
         freezeTableName: true,

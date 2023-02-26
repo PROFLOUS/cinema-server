@@ -1,4 +1,4 @@
-const CinemaMovieRepository = require("../repository/cinemaMovie.repository");
+const CinemaMovieRepository = require("../repositories/cinemaMovie.repository");
 const redisDb = require("../config/redis");
 
 class CinemaMovieService {

@@ -1,4 +1,6 @@
 const Customer = require("../models/Customer");
+const MemberShip = require("../models/MemberShip");
+const Rank = require("../models/Rank");
 
 class CustomerRepository {
   async CreateCustomer(customer) {
@@ -36,6 +38,29 @@ class CustomerRepository {
       },
     });
   }
+
+  async DeleteCustomer(id) {
+    return await Customer.destroy({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async GetAllCustomers() {
+    return await Customer.findAll();
+  }
+
+  async GetCustomerByPage(page, limit) {
+    return await Customer.findAndCountAll({
+      limit: limit,
+      offset: page,
+    });
+  }
+
+ 
+
+
 }
 
 module.exports = new CustomerRepository();
