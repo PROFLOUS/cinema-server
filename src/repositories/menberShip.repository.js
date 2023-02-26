@@ -1,4 +1,4 @@
-const MemberShip = require("../../src/models/MemberShip");
+const MemberShip = require("../models/Membership");
 const Customer = require("../models/Customer");
 const Rank = require("../models/Rank");
 class MemberShipRepository {
@@ -66,11 +66,11 @@ class MemberShipRepository {
       include: [
         {
           model: Customer,
-          attributes: ["id","email"],
+          attributes: ["id", "email"],
         },
         {
           model: Rank,
-          attributes: ["id","nameRank"],
+          attributes: ["id", "nameRank"],
         },
       ],
       attributes: [
@@ -83,8 +83,6 @@ class MemberShipRepository {
     });
     return data;
   }
-
-
 }
 
 module.exports = new MemberShipRepository();
