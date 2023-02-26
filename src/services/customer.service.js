@@ -4,11 +4,11 @@ const MemberShipRepository = require('../repositories/menberShip.repository');
 class CustomerService {
 
     async getAllCustomer() {
-        return await CustomerRepository.getAllCustomer();
+        return await CustomerRepository.GetAllCustomers();
     }
 
     async getCustomerById(id) {
-        return await CustomerRepository.getCustomerById(id);
+        return await CustomerRepository.GetById(id);
     }
 
     async getCustomerByCode(code) {
@@ -16,23 +16,23 @@ class CustomerService {
     }
 
     async getCustomerByPhone(phone) {
-        return await CustomerRepository.getCustomerByPhone(phone);
+        return await CustomerRepository.GetByPhone(phone);
     }
 
     async getCustomerByEmail(email) {
-        return await CustomerRepository.getCustomerByEmail(email);
+        return await CustomerRepository.GetByEmail(email);
     }
 
     async createCustomer(customer) {
-        return await CustomerRepository.createCustomer(customer);
+        return await CustomerRepository.CreateCustomer(customer);
     }
 
     async updateCustomer(id, customer) {
-        return await CustomerRepository.updateCustomer(id, customer);
+        return await CustomerRepository.UpdateCustomer(id, customer);
     }
 
     async deleteCustomer(id) {
-        return await CustomerRepository.deleteCustomer(id);
+        return await CustomerRepository.DeleteCustomer(id);
     }
 
     async getInfoMemberShip(id) {
