@@ -56,7 +56,7 @@ class CustomerRepository {
           attributes: ["id","nameRank"],
         }
       ],
-      attributes: ["id","email","phone","firstName","lastName","gender","dob","image","createdAt","updatedAt"],
+      attributes: ["id","email","phone","firstName","lastName","gender","dob","image","city_id","district_id","ward_id","street","createdAt","updatedAt"],
     });
   }
 
