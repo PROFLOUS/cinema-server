@@ -13,17 +13,17 @@ const Customer = db.define(
     },
     email: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
       comment: "Email",
     },
     password: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: true,
       comment: "Password",
     },
     isActivated: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       comment: "Is Activated",
     },
     phone: {
@@ -43,20 +43,20 @@ const Customer = db.define(
     },
     gender: {
       type: DataTypes.STRING(1),
-      allowNull: false,
+      allowNull: true,
       comment: "Gender",
     },
     city_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     district_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     ward_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     street: {
       type: DataTypes.STRING(100),
@@ -64,7 +64,7 @@ const Customer = db.define(
     },
     salt: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     dob: {
       type: DataTypes.DATE,
