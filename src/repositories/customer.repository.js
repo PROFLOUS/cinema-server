@@ -1,6 +1,6 @@
 const Customer = require("../models/Customer");
-const MemberShip = require("../models/MemberShip");
-const Rank = require("../models/Rank");
+
+
 
 class CustomerRepository {
   async CreateCustomer(customer) {

@@ -23,10 +23,6 @@ const CinemaHallSeat = db.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    idProduct: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
     idCinemaHall: {
       type: DataTypes.BIGINT,
       allowNull: false,
