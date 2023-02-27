@@ -14,11 +14,11 @@ const Staff = db.define(
     },
     email: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     password: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: true,
     },
     isActivated: {
       type: DataTypes.BOOLEAN,
@@ -66,19 +66,19 @@ const Staff = db.define(
     },
     salt: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: true,
     },
     city_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     district_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     ward_id: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     street: {
       type: DataTypes.STRING(100),
@@ -86,6 +86,10 @@ const Staff = db.define(
     },
     image: {
       type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    is_super_user: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
     },
   },

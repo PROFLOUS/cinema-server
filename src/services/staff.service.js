@@ -24,6 +24,8 @@ class StaffService {
     }
 
     async createStaff(staff) {
+        staff.isActivated = false;
+        staff.start_date = new Date();
         return await StaffRepository.CreateStaff(staff);
     }
 

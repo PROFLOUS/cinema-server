@@ -1,4 +1,5 @@
 const Staff = require("../models/Staff");
+const { Op } = require("sequelize");
 
 class StaffRepository {
     
@@ -39,7 +40,26 @@ class StaffRepository {
     }
 
     async GetStaffs() {
-        return await Staff.findAll();
+        return await Staff.findAll({
+            where: {
+                is_super_user: {
+                    [Op.not]: true
+                }
+            },
+            include: [
+                {
+                    model: Staff,
+                    as: "Staffs",
+                    attributes: ["id", "email", "phone", "firstName", "lastName"],
+                },
+            ],
+            attributes: [
+            "id", "email","isActivated","phone","firstName", "lastName","gender","dob"
+            ,"phone","firstName", "lastName","gender","dob"
+            ,"start_date","status","position","manager_id"
+            ,"city_id","district_id","ward_id","street","image"
+        ],
+        });
     }
 
     async GetStaffsByRole(role) {
