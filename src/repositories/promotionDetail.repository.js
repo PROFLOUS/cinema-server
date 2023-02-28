@@ -1,8 +1,21 @@
 const PromotionDetail = require("../models/PromotionDetail");
+const Product = require("../models/Product");
 
 class PromotionDetailRepository {
   async getAllPromotionDetail() {
-    return await PromotionDetail.findAll();
+    return await PromotionDetail.findAll({
+      include: [
+        {
+          model: Product,as: "product_recive",
+          attributes: ["id", "productName"],
+          
+        },
+        {
+          model: Product,as: "product_buy",
+          attributes: ["id", "productName"],
+        },
+      ],
+    });
   }
 
   async getPromotionDetailById(id) {
@@ -10,14 +23,36 @@ class PromotionDetailRepository {
       where: {
         id: id,
       },
+      include: [
+        {
+          model: Product,as: "product_recive",
+          attributes: ["id", "productName"],
+          
+        },
+        {
+          model: Product,as: "product_buy",
+          attributes: ["id", "productName"],
+        },
+      ],
     });
   }
 
   async getPromotionDetailByPromotionLineId(id) {
-    return await PromotionDetail.findAll({
+    return await PromotionDetail.findOne({
       where: {
         idPromotionLine: id,
       },
+      include: [
+        {
+          model: Product,as: "product_recive",
+          attributes: ["id", "productName"],
+          
+        },
+        {
+          model: Product,as: "product_buy",
+          attributes: ["id", "productName"],
+        },
+      ],
     });
   }
 

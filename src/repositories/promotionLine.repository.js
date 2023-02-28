@@ -24,7 +24,7 @@ class PromotionLineRepository {
   async getPromotionLineByPromotionHeaderId(id) {
     return await PromotionLine.findAll({
       where: {
-        idPromotionHeader: id,
+        promotionHeaderId: id,
       },
     });
   }

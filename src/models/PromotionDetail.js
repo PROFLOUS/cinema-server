@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 const PromotionLine = require("./PromotionLine");
+const Product = require("./Product");
 
 const PromotionDetail = db.define(
   "PromotionDetail",
@@ -52,5 +53,15 @@ const PromotionDetail = db.define(
 
 PromotionDetail.belongsTo(PromotionLine, { foreignKey: "idPromotionLine" });
 PromotionLine.hasOne(PromotionDetail);
+
+PromotionDetail.belongsTo(Product, {as: "product_recive", foreignKey: "IdProduct_receive" });
+Product.hasMany(PromotionDetail, {
+  foreignKey: "IdProduct_receive",
+});
+
+PromotionDetail.belongsTo(Product, {as: "product_buy", foreignKey: "IdProduct_buy" });
+Product.hasMany(PromotionDetail, {
+  foreignKey: "IdProduct_buy",
+});
 
 module.exports = PromotionDetail;
