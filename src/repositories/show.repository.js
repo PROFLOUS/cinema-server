@@ -2,9 +2,26 @@ const Show = require("../models/Show");
 const { Op } = require('sequelize');
 const Cinema = require("../models/Cinema");
 const Movie = require("../models/Movie");
+const CinemaHall = require("../models/CinemaHall");
 class ShowRepository {
     async getAllShow() {
-        return await Show.findAll();
+        return await Show.findAll({
+            include: [
+                {
+                    model: Cinema,
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Movie,
+                    attributes: ["id", "nameMovie", "image"],
+                },
+                {
+                    model: CinemaHall,
+                    attributes: ["id", "name"],
+                },
+            ],
+            attributes: ["id", "showDate", "showTime", "createdAt", "updatedAt"],
+        });
     }
 
     async getShowById(id) {
@@ -31,10 +48,18 @@ class ShowRepository {
             include: [
                 {
                     model: Cinema,
-            
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Movie,
+                    attributes: ["id", "nameMovie", "image"],
+                },
+                {
+                    model: CinemaHall,
                     attributes: ["id", "name"],
                 },
             ],
+            attributes: ["id", "showDate", "showTime", "createdAt", "updatedAt"],
         });
     }
 
@@ -52,10 +77,19 @@ class ShowRepository {
             },
             include: [
                 {
+                    model: Cinema,
+                    attributes: ["id", "name"],
+                },
+                {
                     model: Movie,
                     attributes: ["id", "nameMovie", "image"],
                 },
+                {
+                    model: CinemaHall,
+                    attributes: ["id", "name"],
+                },
             ],
+            attributes: ["id", "showDate", "showTime", "createdAt", "updatedAt"],
         });
     }
 
