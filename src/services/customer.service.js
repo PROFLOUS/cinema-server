@@ -27,7 +27,7 @@ class CustomerService {
 
     async createCustomer(req) {
         const customer = req.body;
-        const image = customer.image;
+        const image = req.file;
         console.log(image);
         console.log('body',req.body);
         console.log('file',req.file);
@@ -36,6 +36,7 @@ class CustomerService {
             console.log(result);
             customer.image = result
         }
+        
         return await CustomerRepository.CreateCustomer(customer);
     }
 
