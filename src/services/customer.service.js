@@ -29,6 +29,8 @@ class CustomerService {
         const customer = req.body;
         const image = req.file;
         console.log(image);
+        console.log('body'req.body);
+        console.log('file',req.file);
         const result = await s3Service.uploadFile(image);
         console.log(result);
         customer.image = result
