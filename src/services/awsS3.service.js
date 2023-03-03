@@ -15,26 +15,26 @@ const s3 = new S3({
 class AwsS3Service {
   //upload file to s3
   async uploadFile(file, bucketName = BucketName) {
-    console.log(file);
-    const fileStream = fs.readFileSync(file.path);
-    if(!fileStream) throw new MyError("File not exists");
+    console.log('file',file);
+    // const fileStream = fs.readFileSync(file.path);
+    // if(!fileStream) throw new MyError("File not exists");
 
     const uploadParams = {
       Bucket: bucketName,
-      Body: fileStream,
-      Key: `cinema_${Date.now()}_${file.originalname}`,
+      Body: file,
+      Key: `cinema_${Date.now()}_${file.name}`,
     };
 
-    const { mimetype } = file;
+    const { type } = file;
     if (
-      mimetype === "image/jpeg" ||
-      mimetype === "image/png" ||
-      mimetype === "image/gif" ||
-      mimetype === "video/mp3" ||
-      mimetype === "video/mp4" ||
-      mimetype === "video/x-ms-wmv"
+      type === "image/jpeg" ||
+      type === "image/png" ||
+      type === "image/gif" ||
+      type === "video/mp3" ||
+      type === "video/mp4" ||
+      type === "video/x-ms-wmv"
     )
-      uploadParams.ContentType = mimetype;
+      uploadParams.ContentType = type;
 
     try {
       const result = await s3.upload(uploadParams).promise();
