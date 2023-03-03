@@ -1,5 +1,6 @@
 const CustomerRepository = require('../repositories/customer.repository');
 const MemberShipRepository = require('../repositories/menberShip.repository');
+const s3Service = require("./awsS3.service");
 
 class CustomerService {
 
@@ -24,11 +25,25 @@ class CustomerService {
         return await CustomerRepository.GetByEmail(email);
     }
 
-    async createCustomer(customer) {
+    async createCustomer(req) {
+        const customer = req.body;
+        const image = req.file;
+        console.log(image);
+        const result = await s3Service.uploadFile(image);
+        console.log(result);
+        customer.image = result
         return await CustomerRepository.CreateCustomer(customer);
     }
 
-    async updateCustomer(id, customer) {
+    async updateCustomer(id, req) {
+        const customer = req.body;
+        const image = req.file;
+        console.log(image);
+        if (image) {
+            const result = await s3Service.uploadFile(image);
+            console.log(result);
+            customer.image = result
+        }
         return await CustomerRepository.UpdateCustomer(id, customer);
     }
 

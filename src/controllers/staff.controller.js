@@ -69,7 +69,7 @@ class StaffController {
   // [POST] /staffs
   async createStaff(req, res) {
     try {
-      const staff = await StaffService.createStaff(req.body);
+      const staff = await StaffService.createStaff(req);
       res.status(200).json(staff);
     } catch (err) {
       res.status(500).json({
@@ -82,7 +82,7 @@ class StaffController {
   // [PUT] /staffs/:id
   async updateStaff(req, res) {
     try {
-      const staff = await StaffService.updateStaff(req.params.id, req.body);
+      const staff = await StaffService.updateStaff(req.params.id, req);
       res.status(200).json(staff);
     } catch (err) {
       res.status(500).json({
