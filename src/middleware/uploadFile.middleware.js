@@ -21,11 +21,10 @@ let TYPE_FILE = [
 ];
 
 const FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
-console.log("FILE_SIZE");
+
 let storage = multer.diskStorage({
   filename: (req, file, cb) => {
-    console.log('mdw',file);
-    const splitFileName = file.name.split(".");
+    const splitFileName = file.originalname.split(".");
     console.log(splitFileName);
     const fileEx = splitFileName[splitFileName.length - 1];
     console.log(fileEx);
@@ -39,25 +38,25 @@ let storage = multer.diskStorage({
       return cb(err, null);
     }
 
-    let filename = `${Date.now()}-cinema-${file.name}`;
+    let filename = `${Date.now()}-cinema-${file.originalname}`;
     cb(null, filename);
   },
 });
 
 let uploadFile = multer({
   storage,
-  limits: { size: FILE_SIZE },
+  limits: { fileSize: FILE_SIZE },
 }).single("image");
 
 let uploadManyFiles = multer({
   storage,
-  limits: { size: FILE_SIZE },
+  limits: { fileSize: FILE_SIZE },
 }).array("files", 10);
 
 let uploadFileMiddleware = util.promisify(uploadFile);
 let uploadManyFilesMiddleware = util.promisify(uploadManyFiles);
 
-module.exports = {  
+module.exports = {
   uploadFileMiddleware,
   uploadManyFilesMiddleware,
 };
