@@ -16,12 +16,13 @@ class AwsS3Service {
   //upload file to s3
   async uploadFile(file, bucketName = BucketName) {
     console.log("file", file);
-    // const fileStream = fs.readFileSync(file.path);
-    // if(!fileStream) throw new MyError("File not exists");
+    const fileStream = fs.readFileSync(file.path);
+    if (!fileStream) throw new MyError("File not exists");
+    console.log("fileStream", fileStream);
 
     const uploadParams = {
       Bucket: bucketName,
-      Body: file,
+      Body: fileStream,
       Key: `cinema_${Date.now()}_${file.name}`,
     };
 
