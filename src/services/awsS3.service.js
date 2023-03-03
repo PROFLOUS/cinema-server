@@ -15,7 +15,7 @@ const s3 = new S3({
 class AwsS3Service {
   //upload file to s3
   async uploadFile(file, bucketName = BucketName) {
-    console.log('file',file);
+    console.log("file", file);
     // const fileStream = fs.readFileSync(file.path);
     // if(!fileStream) throw new MyError("File not exists");
 
@@ -41,8 +41,7 @@ class AwsS3Service {
       return result.Location;
     } catch (error) {
       console.log(error);
-        throw Error(error,'Error in upload file to s3');
-    
+      throw Error(error, "Error in upload file to s3");
     }
   }
 

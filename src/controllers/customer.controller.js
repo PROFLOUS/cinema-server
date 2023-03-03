@@ -73,6 +73,7 @@ class CustomerController {
   // [POST] /customers
   async createCustomer(req, res) {
     try {
+      console.log("createCustomer");
       const customer = await CustomerService.createCustomer(req);
       res.status(200).json(customer);
     } catch (err) {

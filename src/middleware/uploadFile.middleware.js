@@ -21,7 +21,7 @@ let TYPE_FILE = [
 ];
 
 const FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
-
+console.log("FILE_SIZE");
 let storage = multer.diskStorage({
   filename: (req, file, cb) => {
     console.log('mdw',file);
@@ -57,7 +57,7 @@ let uploadManyFiles = multer({
 let uploadFileMiddleware = util.promisify(uploadFile);
 let uploadManyFilesMiddleware = util.promisify(uploadManyFiles);
 
-module.exports = {
+module.exports = {  
   uploadFileMiddleware,
   uploadManyFilesMiddleware,
 };
