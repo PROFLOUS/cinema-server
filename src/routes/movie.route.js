@@ -10,7 +10,7 @@ router.get('/', MovieController.getAllMovie);
 router.get('/:id', MovieController.getMovieById);
 router.get('/name/:name', MovieController.getMovieByName);
 router.post('/',uploadFile.uploadFileMiddleware, MovieController.createMovie);
-router.put('/:id', MovieController.updateMovie);
+router.patch('/:id', MovieController.updateMovie);
 router.delete('/:id', MovieController.deleteMovie);
 router.get('/cinema/:id', MovieController.getMovieByCinemaId);
 
