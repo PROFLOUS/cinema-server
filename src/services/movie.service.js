@@ -39,16 +39,18 @@ class MovieService {
   async createMovie(req) {
     const movie = req.body;
     const image = req.file;
-    console.log('img',image);
     if(image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       movie.image = result
     }
     const newMovie = await MovieRepository.createMovie(movie);
     const { id } = newMovie;
     const idCinema = movie.idCinema;
     await MovieCinemaService.createCinemaMovie({ idCinema, idMovie: id });
+    const isExistCacheMovies = await redisDb.exists("movies");
+    if (isExistCacheMovies) {
+      await redisDb.del("movies");
+    }
     const isExist = await redisDb.exists("cinemaMoviesByCinemaId"+id);
     if(isExist){
       await redisDb.del("cinemaMoviesByCinemaId"+id);

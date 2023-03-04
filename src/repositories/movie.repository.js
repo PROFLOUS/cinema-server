@@ -1,8 +1,18 @@
 const Movie = require("../models/Movie");
+const CategoryMovie = require("../models/CategoryMovie");
 
 class MovieRepository {
   async getAllMovie() {
-    return await Movie.findAll();
+    return await Movie.findAll({
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: CategoryMovie,
+          as: "category",
+          attributes: ["id","nameCategory"],
+        }
+      ],
+    });
   }
 
   async getMovieById(id) {

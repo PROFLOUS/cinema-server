@@ -14,6 +14,7 @@ const Staff = db.define(
     },
     email: {
       type: DataTypes.STRING(50),
+      unique: true,
       allowNull: true,
     },
     password: {
@@ -26,6 +27,7 @@ const Staff = db.define(
     },
     phone: {
       type: DataTypes.STRING(10),
+      unique: true,
       allowNull: false,
     },
     firstName: {

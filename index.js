@@ -25,8 +25,8 @@ const port = process.env.PORT;
 // connect to database
 const db = require("./src/config/database");
 
-db.sync({ alter: true });
-// db.sync();
+// db.sync({ alter: true });
+db.sync();
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors({ origin: true, credentials: true }));

@@ -67,6 +67,10 @@ const Movie = db.define(
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    status: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
@@ -74,7 +78,7 @@ const Movie = db.define(
   }
 );
 
-Movie.belongsTo(CategoryMovie, { foreignKey: "idCategoryMovie" });
+Movie.belongsTo(CategoryMovie, { as:'category', foreignKey: "idCategoryMovie" });
 CategoryMovie.hasMany(Movie, { foreignKey: "idCategoryMovie" });
 
 module.exports = Movie;

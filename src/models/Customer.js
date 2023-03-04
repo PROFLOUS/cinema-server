@@ -14,6 +14,7 @@ const Customer = db.define(
     },
     email: {
       type: DataTypes.STRING(50),
+      unique: true,
       allowNull: true,
       comment: "Email",
     },
@@ -29,6 +30,7 @@ const Customer = db.define(
     },
     phone: {
       type: DataTypes.STRING(10),
+      unique: true,
       allowNull: false,
       comment: "Phone Number",
     },
