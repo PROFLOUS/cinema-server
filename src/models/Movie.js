@@ -41,7 +41,7 @@ const Movie = db.define(
     },
     language: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     releaseDate: {
       type: DataTypes.DATE,
@@ -53,11 +53,11 @@ const Movie = db.define(
     },
     country: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     linkTrailer: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: true,
     },
     idCategoryMovie: {
       type: DataTypes.BIGINT,
@@ -65,7 +65,7 @@ const Movie = db.define(
     },
     image: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
