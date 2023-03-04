@@ -30,11 +30,22 @@ const Product = db.define(
       type: DataTypes.STRING(5),
       allowNull: true,
     },
+    comboItemId: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    desc: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,
     timestamps: true,
   }
 );
+
+Product.belongsTo(Product, { as: "parent", foreignKey: "parentId" });
+Product.hasMany(Product, { as: "children", foreignKey: "parentId" });
 
 module.exports = Product;

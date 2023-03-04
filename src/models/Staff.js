@@ -85,7 +85,7 @@ const Staff = db.define(
       allowNull: true,
     },
     image: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(200),
       allowNull: true,
     },
     is_super_user: {

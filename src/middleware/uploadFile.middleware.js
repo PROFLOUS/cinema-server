@@ -25,9 +25,7 @@ const FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
 let storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const splitFileName = file.originalname.split(".");
-    console.log(splitFileName);
     const fileEx = splitFileName[splitFileName.length - 1];
-    console.log(fileEx);
 
     if (fileEx === "rar") {
       file.mimetype = "application/rar";

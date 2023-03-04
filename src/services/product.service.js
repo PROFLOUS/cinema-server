@@ -1,4 +1,5 @@
 const ProductRepository = require("../repositories/product.repository");
+const s3Service = require("./awsS3.service");
 
 class ProductService {
   async getAllProduct() {
@@ -29,11 +30,27 @@ class ProductService {
     });
   }
 
-  async createProduct(product) {
+  async createProduct(req) {
+    const product = req.body;
+    const image = req.file;
+    console.log(image);
+    if (image) {
+      const result = await s3Service.uploadFile(image);
+      console.log(result);
+      product.image = result;
+    }
     return await ProductRepository.createProduct(product);
   }
 
-  async updateProduct(id, product) {
+  async updateProduct(id, req) {
+    const product = req.body;
+    const image = req.file;
+    console.log(image);
+    if (image) {
+      const result = await s3Service.uploadFile(image);
+      console.log(result);
+      product.image = result;
+    }
     return await ProductRepository.updateProduct(product, {
       where: {
         id: id,

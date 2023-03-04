@@ -1,4 +1,4 @@
-const ProductGroup = require('../models/ProductCombo');
+const ProductGroup = require('../models/ComboItem');
 
 class productGroupRepository {
     async getAllProductGroup() {

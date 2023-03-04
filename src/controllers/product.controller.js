@@ -44,7 +44,7 @@ class ProductController {
   // [POST] /products
   async createProduct(req, res) {
     try {
-      const product = await ProductService.createProduct(req.body);
+      const product = await ProductService.createProduct(req);
       res.status(201).json(product);
     } catch (err) {
       res.status(500).json({
@@ -58,8 +58,7 @@ class ProductController {
   async updateProduct(req, res) {
     try {
       const { id } = req.params;
-      const product = req.body;
-      const updateProduct = await ProductService.updateProduct(id, product);
+      const updateProduct = await ProductService.updateProduct(id, req);
       res.status(200).json(updateProduct);
     } catch (err) {
       res.status(500).json({
