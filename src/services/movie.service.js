@@ -60,11 +60,19 @@ class MovieService {
 
   async updateMovie(id, movie) {
     await MovieRepository.updateMovie(id, movie);
+    const isExistCacheMovies = await redisDb.exists("movies");
+    if (isExistCacheMovies) {
+      await redisDb.del("movies");
+    }
     return { message: "Update success" };
   }
 
   async deleteMovie(id) {
     await MovieRepository.deleteMovie(id);
+    const isExistCacheMovies = await redisDb.exists("movies");
+    if (isExistCacheMovies) {
+      await redisDb.del("movies");
+    }
     return { message: "Delete success" };
   }
 }

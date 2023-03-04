@@ -1,6 +1,8 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 const CategoryMovie = require("../models/CategoryMovie");
+const Cinema = require("../models/Cinema");
+
 
 const Movie = db.define(
   "Movie",
@@ -71,6 +73,10 @@ const Movie = db.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    idCinema: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
   },
   {
     freezeTableName: true,
@@ -80,5 +86,10 @@ const Movie = db.define(
 
 Movie.belongsTo(CategoryMovie, { as:'category', foreignKey: "idCategoryMovie" });
 CategoryMovie.hasMany(Movie, { foreignKey: "idCategoryMovie" });
+
+Movie.belongsTo(Cinema, { as:'cinema', foreignKey: "idCinema" });
+Cinema.hasMany(Movie, { foreignKey: "idCinema" });
+
+
 
 module.exports = Movie;
