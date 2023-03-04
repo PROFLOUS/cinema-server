@@ -49,11 +49,11 @@ class MovieService {
     await MovieCinemaService.createCinemaMovie({ idCinema, idMovie: id });
     const isExistCacheMovies = await redisDb.exists("movies");
     if (isExistCacheMovies) {
-      await redisDb.del("movies");
+      await redisDb.deleteKey("movies");
     }
     const isExist = await redisDb.exists("cinemaMoviesByCinemaId"+id);
     if(isExist){
-      await redisDb.del("cinemaMoviesByCinemaId"+id);
+      await redisDb.deleteKey("cinemaMoviesByCinemaId"+id);
     }
     return newMovie;
   }
@@ -62,7 +62,7 @@ class MovieService {
     await MovieRepository.updateMovie(id, movie);
     const isExistCacheMovies = await redisDb.exists("movies");
     if (isExistCacheMovies) {
-      await redisDb.del("movies");
+      await redisDb.deleteKey("movies");
     }
     return { message: "Update success" };
   }
@@ -71,7 +71,7 @@ class MovieService {
     await MovieRepository.deleteMovie(id);
     const isExistCacheMovies = await redisDb.exists("movies");
     if (isExistCacheMovies) {
-      await redisDb.del("movies");
+      await redisDb.deleteKey("movies");
     }
     return { message: "Delete success" };
   }
