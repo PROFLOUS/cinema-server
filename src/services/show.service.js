@@ -175,12 +175,16 @@ class ShowService {
     const endTime = moment(showTime, "HH:mm")
       .add(duration, "minutes")
       .format("HH:mm");
+
+    console.log("showTime", showTime);
+    console.log("crTime", currentTime);
+    console.log("endTime", endTime);
     if(showDate === currentDate){
       if(showTime < currentTime){
         return 3;
-      }else if( currentTime < endTime){
+      }else if( currentTime > showTime && currentTime < endTime){
         return 1;
-      }else if(showTime > currentTime){
+      }else if(showTime > currentTime && endTime > currentTime){
         return 2;
       }
     }else if(showDate < currentDate){
