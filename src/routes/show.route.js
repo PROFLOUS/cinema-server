@@ -11,5 +11,7 @@ router.get('/cinema/:cinemaId', ShowController.getShowByCinemaId);
 router.post('/', ShowController.createShow);
 router.put('/:id', ShowController.updateShow);
 router.delete('/:id', ShowController.deleteShow);
+router.get('/checkExist/', ShowController.checkIsShowTimeExist);
+router.get('/checkPassed/:id', ShowController.checkShowTimeIsPassed);
 
 module.exports = router;

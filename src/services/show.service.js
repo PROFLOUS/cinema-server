@@ -148,6 +148,23 @@ class ShowService {
     showDate,
     idCinema
   ) {
+    if(showTime === null){
+      return {
+        message: "Show time is null",
+      };
+    }
+    const showTimes = this.convertTime12to24(showTime);
+    const currentDateTime = new Date().toLocaleTimeString();
+    const currentTime = this.convertTime12to24(currentDateTime);
+    const currentDate = moment().format("YYYY-MM-DD");
+    const showDates = moment(showDate).format("YYYY-MM-DD");
+    if(showDates === currentDate){
+      if(showTimes < currentTime){
+        return {
+          message: "Show time is Invalid",
+        };
+      }
+    }
     const rs = await ShowRepository.checkIsShowTimeExist(
       showTime,
       idMovie,
@@ -155,7 +172,6 @@ class ShowService {
       showDate,
       idCinema
     );
-    console.log("rs", rs);
     if (rs) {
       return {
         message: "Show time is exist",
