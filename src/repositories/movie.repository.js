@@ -58,6 +58,15 @@ class MovieRepository {
       },
     });
   }
+
+  async getDurationByMovieId(id) {
+    return await Movie.findOne({
+      where: {
+        id: id,
+      },
+      attributes: ["duration"],
+    });
+  }
 }
 
 module.exports = new MovieRepository();

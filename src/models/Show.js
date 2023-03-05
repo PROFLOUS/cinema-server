@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 const CinemaHall = require("../models/CinemaHall");
-const Movie = require("../models/Movie");
+const Movie = require("../models/Movie"); 
 const Cinema = require("../models/Cinema");
 
 const Show = db.define(
@@ -18,10 +18,10 @@ const Show = db.define(
       allowNull: false,
     },
     showTime: {
-      type: DataTypes.JSON,
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
-    idCinemaHall: {
+    idCinemaHall: { 
       type: DataTypes.BIGINT,
       allowNull: false,
     },
@@ -31,6 +31,10 @@ const Show = db.define(
     },
     idCinema: {
       type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.TINYINT(1),
       allowNull: false,
     },
   },

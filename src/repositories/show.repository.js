@@ -13,14 +13,14 @@ class ShowRepository {
                 },
                 {
                     model: Movie,
-                    attributes: ["id", "nameMovie", "image"],
+                    attributes: ["id", "nameMovie", "image", "duration"],
                 },
                 {
                     model: CinemaHall,
                     attributes: ["id", "name"],
                 },
             ],
-            attributes: ["id", "showDate", "showTime", "createdAt", "updatedAt"],
+            attributes: ["id", "showDate", "showTime","status", "createdAt", "updatedAt"],
         });
     }
 
@@ -28,7 +28,22 @@ class ShowRepository {
         return await Show.findOne({
             where: {
                 id: id
-            }
+            },
+            include: [
+                {
+                    model: Cinema,
+                    attributes: ["id", "name"],
+                },
+                {
+                    model: Movie,
+                    attributes: ["id", "nameMovie", "image", "duration"],
+                },
+                {
+                    model: CinemaHall,
+                    attributes: ["id", "name"],
+                },
+            ],
+            attributes: ["id", "showDate", "showTime","status","createdAt", "updatedAt"],
         });
     }
     
@@ -82,7 +97,7 @@ class ShowRepository {
                 },
                 {
                     model: Movie,
-                    attributes: ["id", "nameMovie", "image"],
+                    attributes: ["id", "nameMovie", "image", "duration"],
                 },
                 {
                     model: CinemaHall,
@@ -111,6 +126,27 @@ class ShowRepository {
                 id: id
             }
         });
+    }
+    
+    async checkIsShowTimeExist(showTime, idMovie, idCinemaHall, showDate,idCinema) {
+        console.log('showTime', showTime);
+        const isExist = await Show.findOne({
+            where: {
+                showDate: showDate,
+                idMovie: idMovie,
+                idCinemaHall: idCinemaHall,
+                idCinema: idCinema,
+                showTime: {
+                    [Op.eq]: showTime
+                }
+            }
+        });
+        console.log('isExist', isExist);
+
+        if (isExist) {
+            return true;
+        }
+        return false;
     }
 
 }
