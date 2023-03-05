@@ -24,6 +24,7 @@ const FILE_SIZE = parseInt(process.env.MAX_FILE_SIZE);
 
 let storage = multer.diskStorage({
   filename: (req, file, cb) => {
+    console.log('mdw',file);
     const splitFileName = file.originalname.split(".");
     const fileEx = splitFileName[splitFileName.length - 1];
 

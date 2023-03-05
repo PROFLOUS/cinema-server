@@ -73,7 +73,6 @@ class CustomerController {
   // [POST] /customers
   async createCustomer(req, res) {
     try {
-      console.log("createCustomer");
       const customer = await CustomerService.createCustomer(req);
       res.status(200).json(customer);
     } catch (err) {
@@ -88,7 +87,6 @@ class CustomerController {
   async updateCustomer(req, res) {
     try {
       const customer = await CustomerService.updateCustomer(
-        req.params.id,
         req
       );
       res.status(200).json(customer);

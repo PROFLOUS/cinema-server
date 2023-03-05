@@ -27,7 +27,7 @@ class CustomerService {
   async createCustomer(req) {
     const customer = req.body;
     const image = req.file;
-    console.log(image);
+    console.log("image sv", image);
     if (image) {
       const result = await s3Service.uploadFile(image);
       console.log(result);
@@ -36,10 +36,11 @@ class CustomerService {
     return await CustomerRepository.CreateCustomer(customer);
   }
 
-  async updateCustomer(id, req) {
+  async updateCustomer( req) {
+    const id = req.params.id;
     const customer = req.body;
     const image = req.file;
-    console.log(image);
+    console.log("image sv", image);
     if (image) {
       const result = await s3Service.uploadFile(image);
       console.log(result);
