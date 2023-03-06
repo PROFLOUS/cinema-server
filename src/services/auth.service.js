@@ -241,6 +241,13 @@ class CustomerService {
     if (staff) {
       // const existingStaff = await StaffRepository.GetByEmail(email);
       const existingStaff = await StaffRepository.GetByPhone(phone);
+      console.log("phone", phone);
+      if(existingStaff == null){
+        return {
+          status: 400,
+          message: "Phone is not exist",
+        };
+      }
       let { nameRole } = await RoleRepository.GetNameRoleByStaffId(
         existingStaff.id
       );

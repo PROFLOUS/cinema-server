@@ -77,6 +77,11 @@ const Movie = db.define(
       type: DataTypes.BIGINT,
       allowNull: true,
     },
+    isActived: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
   },
   {
     freezeTableName: true,
