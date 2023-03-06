@@ -7,27 +7,15 @@ class ProductService {
   }
 
   async getProductById(id) {
-    return await ProductRepository.getProductById({
-      where: {
-        id: id,
-      },
-    });
+    return await ProductRepository.getProductById(id);
   }
 
   async getProductByName(name) {
-    return await ProductRepository.getProductByName({
-      where: {
-        nameProduct: name,
-      },
-    });
+    return await ProductRepository.getProductByName(name);
   }
 
   async getProductByCode(code) {
-    return await ProductRepository.getProductByCode({
-      where: {
-        productCode: code,
-      },
-    });
+    return await ProductRepository.getProductByCode(code);
   }
 
   async createProduct(req) {
@@ -51,19 +39,11 @@ class ProductService {
       console.log(result);
       product.image = result;
     }
-    return await ProductRepository.updateProduct(product, {
-      where: {
-        id: id,
-      },
-    });
+    return await ProductRepository.updateProduct(id, product);
   }
 
   async deleteProduct(id) {
-    return await ProductRepository.deleteProduct({
-      where: {
-        id: id,
-      },
-    });
+    return await ProductRepository.deleteProduct(id);
   }
 }
 
