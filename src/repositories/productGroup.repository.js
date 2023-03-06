@@ -1,40 +1,25 @@
-const ProductGroup = require('../models/ComboItem');
+const itemLine = require('../models/itemComboLine');
 
 class productGroupRepository {
     async getAllProductGroup() {
-        return await ProductGroup.findAll();
+        return await itemLine.findAll();
     }
 
     async getProductGroupById(id) {
-        return await ProductGroup.findOne({
+        return await itemLine.findOne({
             where: {
                 id: id
             }
         });
     }
 
-    async getProductGroupByName(name) {
-        return await ProductGroup.findOne({
-            where: {
-                nameProductGroup: name
-            }
-        });
-    }
-
-    async getProductGroupByCode(code) {
-        return await ProductGroup.findOne({
-            where: {
-                productGroupCode: code
-            }
-        });
-    }
 
     async createProductGroup(productGroup) {
-        return await ProductGroup.create(productGroup);
+        return await itemLine.create(productGroup);
     }
 
     async updateProductGroup(id, productGroup) {
-        return await ProductGroup.update(productGroup, {
+        return await itemLine.update(productGroup, {
             where: {
                 id: id
             }
@@ -42,7 +27,7 @@ class productGroupRepository {
     }
 
     async deleteProductGroup(id) {
-        return await ProductGroup.destroy({
+        return await itemLine.destroy({
             where: {
                 id: id
             }
