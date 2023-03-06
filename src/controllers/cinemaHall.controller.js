@@ -41,6 +41,19 @@ class CinemaHallController {
         }
     }
 
+    //[GET] /cinemaHall/cinema/:cinemaId
+    async getCinemaHallByCinemaId(req, res) {
+        try{
+            const rs = await CinemaHallService.getCinemaHallByCinemaId(req.params.cinemaId);
+            res.status(200).json(rs);
+        }catch(err){
+            res.status(500).json({
+                status: 500,
+                message: err.message
+            })
+        }
+    }
+
     //[POST] /cinemaHall
     async createCinemaHall(req, res) {
         try{

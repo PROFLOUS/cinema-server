@@ -14,6 +14,10 @@ class CinemaHallService {
         return await CinemaHallRepository.getCinemaHallByName(name);
     }
 
+    async getCinemaHallByCinemaId(cinemaId) {
+        return await CinemaHallRepository.getCinemaHallByCinemaId(cinemaId);
+    }
+
     async createCinemaHall(cinemaHall) {
         return await CinemaHallRepository.createCinemaHall(cinemaHall);
     }

@@ -1,8 +1,17 @@
 const CinemaHall = require("../models/CinemaHall");
+const Cinema = require("../models/Cinema");
 
 class CinemaHallRepository {
   async getAllCinemaHall() {
-    return await CinemaHall.findAll();
+    const data = await CinemaHall.findAll({
+      include: [
+        {
+          model: Cinema,
+          attributes: ["id", "name"],
+        },
+      ],
+    });
+    return data;
   }
 
   async getCinemaHallById(id) {
@@ -10,6 +19,12 @@ class CinemaHallRepository {
       where: {
         id: id,
       },
+      include: [
+        {
+          model: Cinema,
+          attributes: ["id", "name"],
+        },
+      ],
     });
   }
 
@@ -18,6 +33,26 @@ class CinemaHallRepository {
       where: {
         name: name,
       },
+      include: [
+        {
+          model: Cinema,
+          attributes: ["id", "name"],
+        },
+      ],
+    });
+  }
+
+  async getCinemaHallByCinemaId(cinemaId) {
+    return await CinemaHall.findAll({
+      where: {
+        cinema_id: cinemaId,
+      },
+      include: [
+        {
+          model: Cinema,
+          attributes: ["id", "name"],
+        },
+      ],
     });
   }
 
