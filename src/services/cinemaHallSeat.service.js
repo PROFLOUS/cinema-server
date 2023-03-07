@@ -11,14 +11,14 @@ class CinemaHallSeatService {
     }
 
     async getCinemaHallSeatByCinemaHallId(id) {
-        const seatOnCinema = await redisDb.get('seatOnCinema');
-        if(seatOnCinema){
-            console.log("Get data from redis");
-            return JSON.parse(seatOnCinema);
-        }
+        // const seatOnCinema = await redisDb.get('seatOnCinema');
+        // if(seatOnCinema){
+        //     console.log("Get data from redis");
+        //     return JSON.parse(seatOnCinema);
+        // }
         const data = await CinemaHallSeatRepository.getCinemaHallSeatByCinemaHallId(id);
-        console.log("Get data from database");
-        await redisDb.set('seatOnCinema', JSON.stringify(data), 60);
+        // console.log("Get data from database");
+        // await redisDb.set('seatOnCinema', JSON.stringify(data), 60);
         return data;
     }
 
