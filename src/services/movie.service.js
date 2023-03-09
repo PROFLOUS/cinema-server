@@ -20,8 +20,9 @@ class MovieService {
     return await MovieRepository.getMovieById(id);
   }
 
-  async getMovieByName(name) {
-    return await MovieRepository.getMovieByName(name);
+  async searchMovieByName(nameMovie){
+    console.log("name",nameMovie);
+    return await MovieRepository.searchMovieByName(nameMovie);
   }
 
   async getMovieByCinemaId(id) {

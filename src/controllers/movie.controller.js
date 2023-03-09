@@ -28,10 +28,13 @@ class MovieController {
     }
   }
 
-  //[GET] /movie/name/:name
-  async getMovieByName(req, res) {
+  //[GET] /movie/search/?name=...
+  async searchMovieByName(req, res) {
+    console.log("req", req.params);
+    const name = req.params.name;
+    console.log("name", name);
     try {
-      const rs = await MovieService.getMovieByName(req.params.name);
+      const rs = await MovieService.searchMovieByName(name);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({

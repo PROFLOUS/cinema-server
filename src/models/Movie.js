@@ -86,6 +86,10 @@ const Movie = db.define(
   {
     freezeTableName: true,
     timestamps: true,
+    indexes: [
+      // add a FULLTEXT index
+      { type: 'FULLTEXT', name: 'text_idx', fields: ['nameMovie'] }
+    ]
   }
 );
 

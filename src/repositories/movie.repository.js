@@ -1,5 +1,6 @@
 const Movie = require("../models/Movie");
 const CategoryMovie = require("../models/CategoryMovie");
+const { Sequelize } = require("sequelize");
 
 class MovieRepository {
   async getAllMovie() {
@@ -23,12 +24,24 @@ class MovieRepository {
     });
   }
 
-  async getMovieByName(name) {
-    return await Movie.findOne({
+  async searchMovieByName(nameMovie){
+    
+    return await Movie.findAll({
       where: {
-        name: name,
+        nameMovie: {
+          [Sequelize.Op.like]: `%${nameMovie}%`,
+        },
       },
-    });
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: CategoryMovie,
+          as: "category",
+          attributes: ["id","nameCategory"],
+        }
+      ],
+
+    })
   }
 
   async getMovieByCinemaId(id) {

@@ -8,7 +8,7 @@ const uploadFile = require('../middleware/uploadFile.middleware');
 // router.get('/',rateLimiter({secondsWindow:60,allowedHits:20}), MovieController.getAllMovie);
 router.get('/', MovieController.getAllMovie);
 router.get('/:id', MovieController.getMovieById);
-router.get('/name/:name', MovieController.getMovieByName);
+router.get('/name/:name', MovieController.searchMovieByName);
 router.post('/',uploadFile.uploadFileMiddleware, MovieController.createMovie);
 router.patch('/:id', MovieController.updateMovie);
 router.delete('/:id', MovieController.deleteMovie);
