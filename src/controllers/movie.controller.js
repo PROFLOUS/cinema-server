@@ -60,7 +60,7 @@ class MovieController {
   //[PUT] /movie/:id
   async updateMovie(req, res) {
     try {
-      const rs = await MovieService.updateMovie(req.params.id, req.body);
+      const rs = await MovieService.updateMovie(req.params.id, req);
       res.status(200).json(rs);
     } catch (err) {
       res.status(500).json({

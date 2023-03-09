@@ -59,7 +59,13 @@ class MovieService {
     return newMovie;
   }
 
-  async updateMovie(id, movie) {
+  async updateMovie(id, req) {
+    const movie = req.body;
+    const image = req.file;
+    if(image) {
+      const result = await s3Service.uploadFile(image);
+      movie.image = result
+    }
     await MovieRepository.updateMovie(id, movie);
     const isExistCacheMovies = await redisDb.exists("movies");
     if (isExistCacheMovies) {

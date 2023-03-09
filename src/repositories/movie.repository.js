@@ -27,6 +27,7 @@ class MovieRepository {
   async searchMovieByName(nameMovie){
     
     return await Movie.findAll({
+      // where: Sequelize.literal(`MATCH(nameMovie) AGAINST('${nameMovie}' IN NATURAL LANGUAGE MODE)`),
       where: {
         nameMovie: {
           [Sequelize.Op.like]: `%${nameMovie}%`,
