@@ -16,6 +16,8 @@ const customerRouter = require("./customer.route");
 const priceHeaderRouter = require("./priceHeader.route");
 const priceLineRouter = require("./priceLine.route");
 const staffRouter = require("./staff.route");
+const showTimeRouter = require("./showTime.route");
+const roleRouter = require("./role.route");
 
 const route = (app) => {
   app.use("/auth", authRouter);
@@ -36,6 +38,8 @@ const route = (app) => {
   app.use("/priceHeader", priceHeaderRouter);
   app.use("/priceLine", priceLineRouter);
   app.use("/staff", staffRouter);
+  app.use("/showTime", showTimeRouter);
+  app.use("/role", roleRouter);
 
   app.use("/test", (req, res) => {
     res.send("Hello World !!!!");

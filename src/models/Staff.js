@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
-const AddressPath = require("../models/AddressPath");
 const Cinema = require("../models/Cinema");
+const Role = require("../models/Role");
 
 const Staff = db.define(
   "Staff",
@@ -14,7 +14,6 @@ const Staff = db.define(
     },
     email: {
       type: DataTypes.STRING(50),
-      unique: true,
       allowNull: true,
     },
     password: {
@@ -27,7 +26,6 @@ const Staff = db.define(
     },
     phone: {
       type: DataTypes.STRING(10),
-      unique: true,
       allowNull: false,
     },
     firstName: {
@@ -55,7 +53,7 @@ const Staff = db.define(
       allowNull: false,
     },
     position: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     manager_id: {
@@ -105,5 +103,7 @@ Staff.belongsTo(Cinema, { foreignKey: "cinema_id" });
 Cinema.hasMany(Staff, { foreignKey: "cinema_id" });
 Staff.belongsTo(Staff, { foreignKey: "manager_id" });
 Staff.hasMany(Staff, { foreignKey: "manager_id" });
+Staff.belongsTo(Role, { foreignKey: "position" });
+Role.hasMany(Staff, { foreignKey: "position" });
 
 module.exports = Staff;

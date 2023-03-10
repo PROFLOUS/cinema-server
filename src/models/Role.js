@@ -19,18 +19,11 @@ const Role = db.define(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    staff_id: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-    },
   },
   {
     freezeTableName: true,
     timestamps: false,
   }
 );
-
-Role.belongsTo(Staff, { foreignKey: "staff_id" });
-Staff.hasMany(Role, { foreignKey: "staff_id" });
 
 module.exports = Role;
