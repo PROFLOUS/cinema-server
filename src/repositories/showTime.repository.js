@@ -1,4 +1,4 @@
-const ShowTime = require("../models/ShowTime");
+const ShowTime = require("../models/showTime");
 
 class ShowTimeRepository{
 
