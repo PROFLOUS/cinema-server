@@ -27,6 +27,11 @@ const CinemaHallSeat = db.define(
       type: DataTypes.BIGINT,
       allowNull: false,
     },
+    status:{
+      type: DataTypes.TINYINT(1),
+      allowNull: false,
+      defaultValue: 1,
+    }
   },
   {
     freezeTableName: true,
