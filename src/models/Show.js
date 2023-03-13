@@ -13,12 +13,12 @@ const Show = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    showDate: {
-      type: DataTypes.DATE,
+    startDate: {
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    showTime: {
-      type: DataTypes.STRING(10),
+    endDate: {
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     idCinemaHall: { 
@@ -36,6 +36,11 @@ const Show = db.define(
     status: {
       type: DataTypes.TINYINT(1),
       allowNull: false,
+    },
+    isActivated: {
+      type: DataTypes.TINYINT(1),
+      allowNull: false,
+      defaultValue: 1,
     },
   },
   {

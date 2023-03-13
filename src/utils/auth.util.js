@@ -12,7 +12,6 @@ require("dotenv").config();
 module.exports.ValidatePassword = async (
   enteredPassword,
   savedPassword,
-  salt
 ) => {
   return await bcrypt.compare(enteredPassword, savedPassword);
 };

@@ -248,11 +248,11 @@ class CustomerService {
           message: "Phone is not exist",
         };
       }
-      let { nameRole } = await RoleRepository.GetNameRoleByStaffId(
-        existingStaff.id
-      );
+      // let { nameRole } = await RoleRepository.GetNameRoleByStaffId(
+      //   existingStaff.id
+      // );
 
-      existingStaff.dataValues["nameRole"] = nameRole;
+      // existingStaff.dataValues["nameRole"] = nameRole;
       if (!existingStaff) {
         return {
           status: 400,
@@ -269,6 +269,7 @@ class CustomerService {
       };
 
       if (validatePassword) {
+        console.log("ok")
         const accessToken = await GenerateSignature(
           playload,
           accessTokenSecret,
